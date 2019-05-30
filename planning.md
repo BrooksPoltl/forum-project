@@ -11,6 +11,7 @@
   password: string,
   comments:[comment],
   subscriptions: [topic],
+  userType: string
 }
 ```
 
@@ -20,7 +21,9 @@
   id: int,
   name: string, 
   subscribers:int,
-  threads: [thread]
+  threads: [thread],
+  leader,
+  moderators: [user]
 }
 ```
 >## Thread
