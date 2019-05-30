@@ -2,15 +2,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.Types.ObjectId;
-// {
-//     id: int,
-//     content: string,
-//     upvotes: [userId],
-//     downvotes: [userId],
-//     createdAt: time,
-//     replies: [replies],
-//     commentId: int,
-//   }
+
 const replySchema = new Schema({
     content: {
         type: String,
