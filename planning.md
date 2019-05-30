@@ -10,8 +10,8 @@
   email: string,
   password: string,
   comments:[comment],
+  threads:[thread],
   subscriptions: [topic],
-  userType: string
 }
 ```
 
