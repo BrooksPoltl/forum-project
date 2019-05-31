@@ -17,6 +17,8 @@ const signUp = {
     },
     async resolve(parentValue, args){
         const password = await bcrypt.hash(args.password, 12);
+        const checkUser = await User.find({userName: args.userName})
+        const  checkEmail= await User.find({email: args.email})
         const newUser = new User({
             firstName: args.firstName,
             lastName: args.lastName,
@@ -25,9 +27,27 @@ const signUp = {
             email: args.email,
             password: password
             });
-
-        const response = await newUser.save();
-        console.log(response)
+        if(checkUser.length == 0 && checkEmail.length == 0){
+            const response = await newUser.save();
+        }else if(checkUser.length!= 0){
+            throw {errorMessage: 'username already exist'}
+        }else{
+            throw {errorMessage: 'email already exist'}
+        }
+        
+    }
+}
+const deleteUser = {
+    type: UserType,
+    args: {
+        id: {type: new GraphQLNonNull(GraphQLString)}
+    },
+    async resolve(parentValue,args){
+        return User.remove({_id: args.id}).then(result=>{
+            return{...args}
+        }).catch(err=>{
+            throw err
+        })
     }
 }
 const login = {
@@ -40,3 +60,4 @@ const login = {
 
 module.exports.login = login;
 module.exports.signUp = signUp;
+module.exports.deleteUser = deleteUser;

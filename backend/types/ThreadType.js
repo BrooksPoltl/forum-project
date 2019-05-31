@@ -9,6 +9,7 @@ const {
 const ThreadType= new GraphQLObjectType({
     name: 'Thread',
     fields:{
+        id: {type: GraphQLString},
         title: {type: new GraphQLNonNull(GraphQLString)},
         description: {type: new GraphQLNonNull(GraphQLString)},
         upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLString))},

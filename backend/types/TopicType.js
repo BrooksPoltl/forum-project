@@ -10,6 +10,7 @@ const {
 const TopicType = new GraphQLObjectType({
     name: 'Topic',
     fields:{
+        id: {type: GraphQLString},
         name: {type: new GraphQLNonNull(GraphQLString)},
         subscribers: {type: new GraphQLNonNull(GraphQLInt)},
         leader: {type: new GraphQLNonNull(GraphQLString)},

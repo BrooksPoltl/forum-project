@@ -9,6 +9,7 @@ const {
 const CommentType= new GraphQLObjectType({
     name: 'Comment',
     fields:{
+        id: {type: GraphQLString},
         content: {type: new GraphQLNonNull(GraphQLString)},
         upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLString))},
         downvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLString))},

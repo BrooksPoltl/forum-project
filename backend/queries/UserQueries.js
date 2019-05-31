@@ -17,7 +17,7 @@ const getUsers ={
         return User.find()
         .then(users =>{
             return users.map(user =>{
-                return {...user._doc, id: user.id}
+                return {...user._doc, id: user._id}
             })
         }).catch(err=>{
             throw err;

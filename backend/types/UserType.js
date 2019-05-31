@@ -3,12 +3,13 @@ const {
     GraphQLObjectType,
     GraphQLString,
     GraphQLList,
-    GraphQLNonNull
+    GraphQLNonNull,
 } = graphql;
 
 const UserType = new GraphQLObjectType({
     name: 'User',
     fields:{
+        id: {type: GraphQLString},
         firstName: {type: new GraphQLNonNull(GraphQLString)},
         lastName: {type: new GraphQLNonNull(GraphQLString)},
         userName: {type: new GraphQLNonNull(GraphQLString)},
