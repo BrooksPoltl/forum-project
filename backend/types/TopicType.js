@@ -7,7 +7,7 @@ const {
     GraphQLInt
 } = graphql;
 
-export const TopicType = new GraphQLObjectType({
+const TopicType = new GraphQLObjectType({
     name: 'Topic',
     fields:{
         name: {type: new GraphQLNonNull(GraphQLString)},
@@ -17,3 +17,5 @@ export const TopicType = new GraphQLObjectType({
         threads: {type: new GraphQLNonNull(GraphQLList(GraphQLString))},
     }
 })
+
+module.exports.TopicType = TopicType;

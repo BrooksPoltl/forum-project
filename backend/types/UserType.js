@@ -6,7 +6,7 @@ const {
     GraphQLNonNull
 } = graphql;
 
-export const UserType = new GraphQLObjectType({
+const UserType = new GraphQLObjectType({
     name: 'User',
     fields:{
         firstName: {type: new GraphQLNonNull(GraphQLString)},
@@ -17,6 +17,7 @@ export const UserType = new GraphQLObjectType({
         password: {type: new GraphQLNonNull(GraphQLString)},
         comments: {type: new GraphQLNonNull(GraphQLList(GraphQLString))},
         subscriptions: {type: new GraphQLNonNull(GraphQLList(GraphQLString))},
-        threads: {type: new GraphQLNonNull(GraphQLList(GrapqhQLString))},
+        threads: {type: new GraphQLNonNull(GraphQLList(GraphQLString))},
     }
 })
+module.exports.UserType = UserType;

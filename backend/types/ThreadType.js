@@ -6,7 +6,7 @@ const {
     GraphQLNonNull
 } = graphql;
 
-export const ThreadType= new GraphQLObjectType({
+const ThreadType= new GraphQLObjectType({
     name: 'Thread',
     fields:{
         title: {type: new GraphQLNonNull(GraphQLString)},
@@ -17,3 +17,5 @@ export const ThreadType= new GraphQLObjectType({
         topicId: {type: new GraphQLNonNull(GraphQLString)},
     }
 })
+
+module.exports.ThreadType = ThreadType;

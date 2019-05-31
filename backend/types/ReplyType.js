@@ -6,7 +6,7 @@ const {
     GraphQLNonNull
 } = graphql;
 
-export const ReplyType= new GraphQLObjectType({
+const ReplyType= new GraphQLObjectType({
     name: 'Reply',
     fields:{
         content: {type: new GraphQLNonNull(GraphQLString)},
@@ -16,3 +16,5 @@ export const ReplyType= new GraphQLObjectType({
         commentId: {type: new GraphQLNonNull(GraphQLString)},
     }
 })
+
+module.exports.ReplyType = ReplyType;

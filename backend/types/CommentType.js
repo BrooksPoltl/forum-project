@@ -6,7 +6,7 @@ const {
     GraphQLNonNull
 } = graphql;
 
-export const CommentType= new GraphQLObjectType({
+const CommentType= new GraphQLObjectType({
     name: 'Comment',
     fields:{
         content: {type: new GraphQLNonNull(GraphQLString)},
@@ -16,3 +16,5 @@ export const CommentType= new GraphQLObjectType({
         threadId: {type: new GraphQLNonNull(GraphQLString)},
     }
 })
+
+module.exports.CommentType = CommentType;
