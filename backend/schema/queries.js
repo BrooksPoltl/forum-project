@@ -4,8 +4,8 @@ const {GraphQLObjectType} = graphql;
 const RootQuery = new GraphQLObjectType({
     name: 'RootQueryType',
     fields: ()=>({
-        getUserById: getUserById,
-        getUsers: getUsers
+        user: getUserById,
+        users: getUsers
     })
 })
 module.exports.RootQuery = RootQuery;

@@ -21,7 +21,7 @@ const UserType = new GraphQLObjectType({
         email: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)},
         comments: {type: new GraphQLNonNull(GraphQLList(CommentType))},
-        subscriptions: {type: new GraphQLNonNull(GraphQLList(TopicType))},
+        topics: {type: new GraphQLNonNull(GraphQLList(TopicType))},
         threads: {type: new GraphQLNonNull(GraphQLList(ThreadType))},
     }
 })

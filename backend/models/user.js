@@ -30,7 +30,7 @@ const userSchema = new Schema({
         type: Array,
         required: true
     },
-    subscriptions:{
+    topics:{
         type: Array,
         required: true
     },

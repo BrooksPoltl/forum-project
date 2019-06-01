@@ -16,11 +16,11 @@ const topicSchema = new Schema({
         type: Array,
         required: true
     },
-    leader: {
+    user: {
         type: Object,
         required: true
     },
-    moderators: {
+    users: {
         type: Array,
         required: true
     }

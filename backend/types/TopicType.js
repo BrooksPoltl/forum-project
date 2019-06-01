@@ -17,8 +17,8 @@ const TopicType = new GraphQLObjectType({
         id: {type: GraphQLString},
         name: {type: new GraphQLNonNull(GraphQLString)},
         subscribers: {type: new GraphQLNonNull(GraphQLInt)},
-        leader: {type: new GraphQLNonNull(UserType)},
-        moderators: {type: new GraphQLNonNull(GraphQLList(UserType))},
+        user: {type: new GraphQLNonNull(UserType)},
+        users: {type: new GraphQLNonNull(GraphQLList(UserType))},
         threads: {type: new GraphQLNonNull(GraphQLList(ThreadType))},
     }
 })
