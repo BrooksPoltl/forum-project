@@ -20,8 +20,8 @@ const replySchema = new Schema({
         type: Array,
         required: true
     },
-    commentId: {
-        type: ObjectId,
+    comment: {
+        type: Object,
         required: true
     }
 },{timestamps: true})

@@ -19,8 +19,8 @@ const commentSchema = new Schema({
         type: Array,
         required: true
     },
-    threadId: {
-        type: ObjectId,
+    thread: {
+        type: Object,
         required: true
     }
 },{timestamps: true})

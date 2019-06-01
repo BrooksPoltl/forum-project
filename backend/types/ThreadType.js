@@ -3,8 +3,13 @@ const {
     GraphQLObjectType,
     GraphQLString,
     GraphQLList,
+    GraphQLInt,
     GraphQLNonNull
 } = graphql;
+
+const {ThreadType} = require('./ThreadType')
+const {CommentType} = require('./CommentType')
+const {TopicType} = require('./TopicType')
 
 const ThreadType= new GraphQLObjectType({
     name: 'Thread',
@@ -12,10 +17,10 @@ const ThreadType= new GraphQLObjectType({
         id: {type: GraphQLString},
         title: {type: new GraphQLNonNull(GraphQLString)},
         description: {type: new GraphQLNonNull(GraphQLString)},
-        upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLString))},
-        downvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLString))},
-        userId: {type: new GraphQLNonNull(GraphQLString)},
-        topicId: {type: new GraphQLNonNull(GraphQLString)},
+        upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
+        downvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
+        user: {type: new GraphQLNonNull(UserType)},
+        topic: {type: new GraphQLNonNull(TopicType)},
     }
 })
 

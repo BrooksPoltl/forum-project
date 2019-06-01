@@ -17,7 +17,7 @@ const topicSchema = new Schema({
         required: true
     },
     leader: {
-        type: ObjectId,
+        type: Object,
         required: true
     },
     moderators: {
