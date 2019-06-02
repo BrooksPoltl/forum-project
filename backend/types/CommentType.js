@@ -8,6 +8,8 @@ const {
     GraphQLNonNull
 } = graphql;
 
+const User = require('../models/user')
+
 const {ThreadType} = require('./ThreadType')
 const {UserType} = require('./UserType')
 const CommentType= new GraphQLObjectType({
@@ -18,8 +20,9 @@ const CommentType= new GraphQLObjectType({
         upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
         downvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
         // user: {type: new GraphQLNonNull(UserType),
-        //     resolve:(parentValue,args)=>{
-        //         return user.findById(user);
+        //     resolve:async(parentValue,args, context)=>{
+        //         console.log(context)
+        //         return User.find({id: context.id })
         //     }
         //     },
         // thread: {type: new GraphQLNonNull(ThreadType),

@@ -21,12 +21,8 @@ app.use('/graphql', expressGraphQL(req=>({
     schema,
     graphiql: true,
     context: {
-        userName: req.username,
         id: req.id,
-        firstName: req.firstName,
-        lastName: req.lastName,
-        profilePicture: req.profilePicture,
-        email: req.email,
+        email: req.email
     }
 })))
 
