@@ -5,6 +5,7 @@ const jsonwebtoken = require('jsonwebtoken')
 const graphql = require('graphql')
 const {picUrl} = require('../assets/profile')
 const {GraphQLNonNull, GraphQLString, GraphQLID} = graphql;
+const {AuthType} = require('../types/authData')
 
 const signUp = {
     type: UserType,
@@ -55,7 +56,7 @@ const deleteUser = {
     }
 }
 const login = {
-    type: UserType,
+    type: AuthType,
     args:{
         email: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)}
@@ -73,7 +74,7 @@ const login = {
             return {errorMessage: 'incorrect password'}
       }
       const response = jsonwebtoken.sign({id: user._id,email: user.email}, process.env.SECRET, { expiresIn: '1y' })
-      return {...args, token: response}
+      return {id: user._id, token: response}
     }
 }
 
