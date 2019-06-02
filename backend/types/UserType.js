@@ -12,6 +12,9 @@ const Topic = require('../models/topic');
 const Thread = require('../models/thread');
 
 const {CommentType} = require('./CommentType')
+const {TopicType} = require('./TopicType')
+const {ThreadType} = require('./ThreadType')
+
 const UserType = new GraphQLObjectType({
     name: 'User',
     fields:()=>({
@@ -27,16 +30,16 @@ const UserType = new GraphQLObjectType({
                 return Comment.find({id: parentValue.id})
             }
         },
-        // topics: {type: new GraphQLNonNull(GraphQLList(TopicType)),
-        //     resolve:(parentValue,args)=>{
-
-        //     }
-        // },
-        // threads: {type: new GraphQLNonNull(GraphQLList(ThreadType)),
-        //     resolve:(parentValue,args)=>{
-
-        //     }
-        // },
+        topics: {type: new GraphQLNonNull(GraphQLList(TopicType)),
+            resolve:(parentValue,args)=>{
+                return Topic.find({id: parentValue.id})
+            }
+        },
+        threads: {type: new GraphQLNonNull(GraphQLList(ThreadType)),
+            resolve:(parentValue,args)=>{
+                return Thread.find({id: parentValue.id})
+            }
+        },   
     })
 })
 
