@@ -3,26 +3,39 @@ const {
     GraphQLObjectType,
     GraphQLString,
     GraphQLList,
+    GraphQLID,
     GraphQLNonNull,
 } = graphql;
 
-const {ThreadType} = require('./ThreadType')
-const {CommentType} = require('./CommentType')
-const {TopicType} = require('./TopicType')
+const Comment = require('../models/comment');
+const Topic = require('../models/topic');
+const Thread = require('../models/thread');
 
 const UserType = new GraphQLObjectType({
     name: 'User',
-    fields:{
-        id: {type: GraphQLString},
+    fields:()=>({
+        id: {type: new GraphQLNonNull(GraphQLID)},
         firstName: {type: new GraphQLNonNull(GraphQLString)},
         lastName: {type: new GraphQLNonNull(GraphQLString)},
         userName: {type: new GraphQLNonNull(GraphQLString)},
         profilePicture: {type: new GraphQLNonNull(GraphQLString)},
         email: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)},
-        comments: {type: new GraphQLNonNull(GraphQLList(CommentType))},
-        topics: {type: new GraphQLNonNull(GraphQLList(TopicType))},
-        threads: {type: new GraphQLNonNull(GraphQLList(ThreadType))},
-    }
+        // comments: {type: new GraphQLNonNull(GraphQLList(CommentType)),
+        //     resolve:(parentValue,args)=>{
+        //     }
+        // },
+        // topics: {type: new GraphQLNonNull(GraphQLList(TopicType)),
+        //     resolve:(parentValue,args)=>{
+
+        //     }
+        // },
+        // threads: {type: new GraphQLNonNull(GraphQLList(ThreadType)),
+        //     resolve:(parentValue,args)=>{
+
+        //     }
+        // },
+    })
 })
+
 module.exports.UserType = UserType;

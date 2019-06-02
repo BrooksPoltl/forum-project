@@ -1,12 +1,12 @@
 const {CommentType}= require('../types/CommentType')
 const Comment= require('../models/comment')
+const graphql = require('graphql')
 
-
-const {GraphQLList, GraphQLNonNull, GraphQLString}=graphql;
+const {GraphQLList, GraphQLNonNull, GraphQLID}=graphql;
 
 const getCommentById = {
         type: GraphQLList(CommentType),
-        args:{id: {type: new GraphQLNonNull(GraphQLString)}},
+        args:{id: {type: new GraphQLNonNull(GraphQLID)}},
         async resolve(parentValue, args){
             return Comment.find({_id: args.id })
         }

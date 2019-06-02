@@ -17,11 +17,12 @@ app.use('/graphql', expressGraphQL({
 
 const port = process.env.PORT || 4000;
 const uri = `mongodb+srv://${process.env.MONGO_USER}:${process.env.MONGO_PASSWORD}@cluster0-t6a6m.mongodb.net/${process.env.MONGO_DB}?retryWrites=true`;
-
-mongoose.connect(uri).then(()=>{
-    app.listen(port, ()=>{
-        console.log(`listening of port ${port}`)
-    })
-}).catch(err=>{
-    console.log(err);
-})
+if(process.env.ENVIRONMENT == 'production'){
+    mongoose.connect(uri).then(()=>{
+        app.listen(port, ()=>{
+            console.log(`listening of port ${port}`)
+        })
+    }).catch(err=>{
+        console.log(err);
+    })    
+}

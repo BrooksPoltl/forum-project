@@ -3,11 +3,11 @@ const Thread= require('../models/thread')
 
 const graphql = require('graphql')
 
-const {GraphQLList, GraphQLNonNull, GraphQLString}=graphql;
+const {GraphQLList, GraphQLNonNull, GraphQLID}=graphql;
 
 const getThreadById = {
         type: GraphQLList(ThreadType),
-        args:{id: {type: new GraphQLNonNull(GraphQLString)}},
+        args:{id: {type: new GraphQLNonNull(GraphQLID)}},
         async resolve(parentValue, args){
             return Thread.find({_id: args.id })
         }

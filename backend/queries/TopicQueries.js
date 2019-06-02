@@ -3,11 +3,11 @@ const Topic= require('../models/topic')
 
 const graphql = require('graphql')
 
-const {GraphQLList, GraphQLNonNull, GraphQLString}=graphql;
+const {GraphQLList, GraphQLNonNull, GraphQLID}=graphql;
 
 const getTopicById = {
         type: GraphQLList(TopicType),
-        args:{id: {type: new GraphQLNonNull(GraphQLString)}},
+        args:{id: {type: new GraphQLNonNull(GraphQLID)}},
         async resolve(parentValue, args){
             return Topic.find({_id: args.id })
         }

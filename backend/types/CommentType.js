@@ -4,21 +4,28 @@ const {
     GraphQLString,
     GraphQLList,
     GraphQLInt,
+    GraphQLID,
     GraphQLNonNull
 } = graphql;
 
 const {ThreadType} = require('./ThreadType')
-const {ReplyType} = require('./ReplyType')
-
+const {UserType} = require('./UserType')
 const CommentType= new GraphQLObjectType({
     name: 'Comment',
     fields:{
-        id: {type: GraphQLString},
+        id: {type: new GraphQLNonNull(GraphQLID)},
         content: {type: new GraphQLNonNull(GraphQLString)},
         upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
         downvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
-        replies: {type: new GraphQLNonNull(GraphQLList(ReplyType))},
-        thread: {type: new GraphQLNonNull(ThreadType)},
+        // user: {type: new GraphQLNonNull(UserType),
+        //     resolve:(parentValue,args)=>{
+        //         return user.findById(user);
+        //     }
+        //     },
+        // thread: {type: new GraphQLNonNull(ThreadType),
+        //     resolve:(parentValue, args)=>{
+        //         return args.thread
+        //     }},
     }
 })
 

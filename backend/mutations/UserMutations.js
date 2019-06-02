@@ -3,7 +3,7 @@ const User= require('../models/user')
 const bcrypt = require('bcrypt')
 const jsonwebtoken = require('jsonwebtoken')
 const graphql = require('graphql')
-const {GraphQLNonNull, GraphQLString} = graphql;
+const {GraphQLNonNull, GraphQLString, GraphQLID} = graphql;
 
 const signUp = {
     type: UserType,
@@ -40,7 +40,7 @@ const signUp = {
 const deleteUser = {
     type: UserType,
     args: {
-        id: {type: new GraphQLNonNull(GraphQLString)}
+        id: {type: new GraphQLNonNull(GraphQLID)}
     },
     async resolve(parentValue,args){
         return User.remove({_id: args.id}).then(result=>{

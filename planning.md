@@ -46,20 +46,6 @@
   upvotes: [userId],
   downvotes: [userId],
   createdAt: time,
-  replies: [replies],
   threadId: int,
-}
-```
-
->## Reply
-```
-{
-  id: int,
-  content: string,
-  upvotes: [userId],
-  downvotes: [userId],
-  createdAt: time,
-  replies: [replies],
-  commentId: int,
 }
 ```
