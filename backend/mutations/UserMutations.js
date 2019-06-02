@@ -3,6 +3,7 @@ const User= require('../models/user')
 const bcrypt = require('bcrypt')
 const jsonwebtoken = require('jsonwebtoken')
 const graphql = require('graphql')
+const {picUrl} = require('../assets/profile')
 const {GraphQLNonNull, GraphQLString, GraphQLID} = graphql;
 
 const signUp = {
@@ -11,7 +12,7 @@ const signUp = {
         firstName: {type: new GraphQLNonNull(GraphQLString)},
         lastName: {type: new GraphQLNonNull(GraphQLString)},
         userName: {type: new GraphQLNonNull(GraphQLString)},
-        profilePicture: {type: new GraphQLNonNull(GraphQLString)},
+        profilePicture: {type: GraphQLString},
         email: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)}
     },
@@ -27,6 +28,9 @@ const signUp = {
             email: args.email,
             password: password
             });
+        if(!newUser.profilePicture){
+            newUser.profilePicture = picUrl;
+        }
         if(checkUser.length == 0 && checkEmail.length == 0){
             const response = await newUser.save();
         }else if(checkUser.length!= 0){
@@ -55,6 +59,21 @@ const login = {
     args:{
         email: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)}
+    },
+    async resolve(parentValue, args){
+        let user = await User.find({email: args.email})
+        user = user[0];
+        if(!user){
+            return {errrorMessage: 'no user by that email'}
+        }
+        console.log(args.password, user.password, user.email)
+        const valid = await bcrypt.compareSync(args.password, user.password)
+        console.log(valid)
+        if (!valid) {
+            return {errorMessage: 'incorrect password'}
+      }
+      const response = jsonwebtoken.sign({id: user._id,email: user.email}, process.env.SECRET, { expiresIn: '1y' })
+      return {...args, token: response}
     }
 }
 
