@@ -20,20 +20,10 @@ const TopicType = new GraphQLObjectType({
         id: {type: new GraphQLNonNull(GraphQLID)},
         name: {type: new GraphQLNonNull(GraphQLString)},
         subscribers: {type: new GraphQLNonNull(GraphQLInt)},
-        // user: {type: new GraphQLNonNull(UserType)},
-        //     resolve:(parentValue,args)=>{
-        //         return parentValue.user
-        //     },
-        // users: {type: new GraphQLNonNull(GraphQLList(UserType)),
-        //     resolve:(parentValue,args)=>{
-
-        //     },
-        // },
-        // threads: {type: new GraphQLNonNull(GraphQLList(ThreadType)),
-        //     resolve:(parentValue,args)=>{
-
-        //     },
-        // },
+        user: {type: new GraphQLNonNull(GraphQLID)},
+        users: {type: new GraphQLNonNull(GraphQLList(GraphQLID))},
+        threads: {type: new GraphQLNonNull(GraphQLList(GraphQLID)),
+        },
     })
 })
 
