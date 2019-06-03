@@ -24,11 +24,7 @@ const ThreadType= new GraphQLObjectType({
         description: {type: new GraphQLNonNull(GraphQLString)},
         upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
         downvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
-        // user: {type: new GraphQLNonNull(UserType),
-        //     resolve:(parentValue, args)=>{
-        //         return parentValue.user
-        //     },    
-        // },
+        userId: {type: new GraphQLNonNull(GraphQLID)},
         // topic: {type: new GraphQLNonNull(TopicType),
         //     resolve:(parentValue,args)=>{
         //         return parentValue.topic

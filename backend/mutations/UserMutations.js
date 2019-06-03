@@ -67,7 +67,6 @@ const login = {
         if(!user){
             return {errrorMessage: 'no user by that email'}
         }
-        console.log(args.password, user.password, user.email)
         const valid = await bcrypt.compareSync(args.password, user.password)
         console.log(valid)
         if (!valid) {

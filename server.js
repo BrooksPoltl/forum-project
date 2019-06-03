@@ -5,24 +5,29 @@ const schema = require('./backend/schema/schema')
 const bodyParser = require('body-parser')
 const cors = require('cors')
 const mongoose = require('mongoose')
-const jwt = require('express-jwt')
+const jwt = require('jsonwebtoken')
 
 const app = express()
 
 app.use(bodyParser.json())
 app.use(cors())
-const authMiddleware = jwt({
-    secret: process.env.SECRET,
-    credentialsRequired: false
-})
+const authMiddleware = async(req)=>{
+    const token = req.headers.authorization;
+    try{
+        const  user = await jwt.verify(token, process.env.SECRET);
+        req.user = user;
+    }catch(err){
+        console.log(err);
+    }
+    req.next();
+}
 app.use(authMiddleware)
 
 app.use('/graphql', expressGraphQL(req=>({
     schema,
     graphiql: true,
     context: {
-        id: req.id,
-        email: req.email
+        user: req.user
     }
 })))
 
