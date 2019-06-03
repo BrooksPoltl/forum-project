@@ -13,7 +13,7 @@ const RootQuery = new GraphQLObjectType({
         user: getUserById,
         users: getUsers,
         topic: getTopicById,
-        topics: getTopicById,
+        topics: getTopics,
         thread: getThreadById,
         threads: getThreads,
         comment: getCommentById,
