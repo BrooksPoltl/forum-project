@@ -26,4 +26,10 @@ const createTopic = {
     }
 }
 
+const deleteTopic = {
+    type: TopicType,
+    args: {},
+    
+}
+
 module.exports.createTopic = createTopic;

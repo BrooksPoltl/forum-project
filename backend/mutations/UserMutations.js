@@ -44,11 +44,9 @@ const signUp = {
 }
 const deleteUser = {
     type: UserType,
-    args: {
-        id: {type: new GraphQLNonNull(GraphQLID)}
-    },
-    async resolve(parentValue,args){
-        return User.remove({_id: args.id}).then(result=>{
+    args: {},
+    async resolve(parentValue,args, {user}){
+        return User.remove({_id: user.id}).then(result=>{
             return{...args}
         }).catch(err=>{
             throw err
