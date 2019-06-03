@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const ObjectId = mongoose.Schema.ObjectId;
 const commentSchema = new Schema({
     content: {
         type: String,
@@ -14,8 +14,8 @@ const commentSchema = new Schema({
         type: Array,
         required: true
     },
-    user: {
-        type: Object,
+    userId: {
+        type: ObjectId,
         required: true
     },
     thread: {

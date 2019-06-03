@@ -2,7 +2,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const ObjectId = mongoose.Schema.ObjectId
 const threadSchema = new Schema({
     title: {
         type: String,
@@ -20,8 +20,8 @@ const threadSchema = new Schema({
         type: Array,
         required: true
     },
-    user: {
-        type: Object,
+    userId: {
+        type: ObjectId,
         required: true
     },
     topic: {

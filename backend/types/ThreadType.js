@@ -25,11 +25,11 @@ const ThreadType= new GraphQLObjectType({
         upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
         downvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
         userId: {type: new GraphQLNonNull(GraphQLID)},
-        // topic: {type: new GraphQLNonNull(TopicType),
-        //     resolve:(parentValue,args)=>{
-        //         return parentValue.topic
-        //     },
-        // },
+        topic: {type: new GraphQLNonNull(TopicType),
+            resolve:(parentValue,args)=>{
+                return args.topic
+            },
+        },
     })
 })
 

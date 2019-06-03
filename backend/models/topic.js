@@ -1,7 +1,7 @@
 
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-
+const ObjectId = mongoose.Schema.ObjectId;
 
 const topicSchema = new Schema({
     name: {
@@ -17,7 +17,7 @@ const topicSchema = new Schema({
         required: true
     },
     user: {
-        type: Object,
+        type: ObjectId,
         required: true
     },
     users: {
