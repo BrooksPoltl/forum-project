@@ -66,11 +66,10 @@ const login = {
             return {errrorMessage: 'no user by that email'}
         }
         const valid = await bcrypt.compareSync(args.password, user.password)
-        console.log(valid)
         if (!valid) {
             return {errorMessage: 'incorrect password'}
       }
-      const response = jsonwebtoken.sign({id: user._id,email: user.email}, process.env.SECRET, { expiresIn: '1h' })
+      const response = jsonwebtoken.sign({id: user._id,email: user.email}, process.env.SECRET, { expiresIn: '1y' })
       return {id: user._id, token: response}
     }
 }

@@ -1,7 +1,7 @@
 const {TopicType} = require('../types/TopicType')
 const Topic= require('../models/topic')
 const graphql = require('graphql')
-const {GraphQLNonNull, GraphQLString} = graphql
+const {GraphQLNonNull, GraphQLString, GraphQLID} = graphql
 
 
 
@@ -22,14 +22,25 @@ const createTopic = {
             threads: []
         })
         const response = await newTopic.save()
-        console.log(response)
     }
 }
 
-const deleteTopic = {
-    type: TopicType,
-    args: {},
-    
-}
+// const deleteTopic = {
+//     type: TopicType,
+//     args: {
+//         topic: new GraphQLNonNull(GraphQLID)
+//     },
+//     async resolve(parentValue,args, {user}){
+//         let topic = await Topic.find({_id: args.topic})
+//         topic = topic[0]
+//         console.log(topic)
+//         return Topic.remove({_id: args.topic}).then(result=>{
+//             return{...args}
+//         }).catch(err=>{
+//             throw err
+//         })
+//     }
+// }
 
 module.exports.createTopic = createTopic;
+// module.exports.deleteTopic = deleteTopic;
