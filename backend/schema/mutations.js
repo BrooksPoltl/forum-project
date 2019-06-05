@@ -10,7 +10,7 @@ const mutation = new GraphQLObjectType({
         deleteUser: deleteUser,
         login: login,
         createTopic: createTopic,
-        // deleteTopic: deleteTopic
+        deleteTopic: deleteTopic
     }
 })
 

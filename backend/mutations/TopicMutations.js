@@ -25,22 +25,24 @@ const createTopic = {
     }
 }
 
-// const deleteTopic = {
-//     type: TopicType,
-//     args: {
-//         topic: new GraphQLNonNull(GraphQLID)
-//     },
-//     async resolve(parentValue,args, {user}){
-//         let topic = await Topic.find({_id: args.topic})
-//         topic = topic[0]
-//         console.log(topic)
-//         return Topic.remove({_id: args.topic}).then(result=>{
-//             return{...args}
-//         }).catch(err=>{
-//             throw err
-//         })
-//     }
-// }
+const deleteTopic = {
+    type: TopicType,
+    args: {
+        topic:{type: GraphQLNonNull(GraphQLID), resolve:async()=>{
+            let topic = await Topic.find({_id: args.topic})
+            topic = topic[0]
+            return topic;
+        }}
+    },
+    async resolve(parentValue,args, {user}){
+        console.log(args.topic)
+        return Topic.deleteOne({_id: args.topic}).then(result=>{
+            return{id: args.topic}
+        }).catch(err=>{
+            throw err
+        })
+    }
+}
 
 module.exports.createTopic = createTopic;
-// module.exports.deleteTopic = deleteTopic;
+module.exports.deleteTopic = deleteTopic;
