@@ -1,6 +1,10 @@
 const {UserType} = require('../types/UserType')
+
 const graphql = require('graphql')
+
 const User= require('../models/user')
+
+
 const {GraphQLList, GraphQLNonNull, GraphQLID}=graphql;
 
 const getUserById = {
@@ -24,5 +28,8 @@ const getUsers ={
         })
     }
 }
+
+
+
 module.exports.getUsers = getUsers;
 module.exports.getUserById = getUserById;

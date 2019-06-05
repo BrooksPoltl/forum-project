@@ -30,7 +30,6 @@ const deleteTopic = {
     args: {
         topic:{type: GraphQLNonNull(GraphQLID), resolve:async()=>{
             let topic = await Topic.find({_id: args.topic})
-            topic = topic[0]
             return topic;
         }}
     },
@@ -43,6 +42,24 @@ const deleteTopic = {
         })
     }
 }
+
+// be able to subscribe
+// be able to unsubscribe
+
+// //{
+//     "data": {
+//         "topics": [
+//           {
+//             "id": "5cf815f72fe3d4032ffd8438",
+//             "user": "5cf40acd1809f05aa01aa0d5",
+//             "users": [],
+//             "subscribers": 0,
+//             "threads": []
+//           }
+//         ]
+//       }
+//     }
+
 
 module.exports.createTopic = createTopic;
 module.exports.deleteTopic = deleteTopic;
