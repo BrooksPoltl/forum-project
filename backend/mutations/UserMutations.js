@@ -1,15 +1,14 @@
-const {UserType} = require('../types/UserType')
-const User= require('../models/user')
+
 const bcrypt = require('bcrypt')
 const jsonwebtoken = require('jsonwebtoken')
 const graphql = require('graphql')
 const {picUrl} = require('../assets/profile')
 const {GraphQLNonNull, GraphQLString, GraphQLID, GraphQLList} = graphql;
 
-const {AuthType} = require('../types/authData')
-const {TopicType} = require('../types/TopicType')
+const {UserType, AuthType} = require('../types/types')
 
-const Topic = require('../models/topic')
+const {User,Comment,Thread,Topic} = require('../models/models')
+
 const signUp = {
     type: UserType,
     args: {
@@ -76,40 +75,8 @@ const login = {
       return {id: user._id, token: response}
     }
 }
-const subscribe = {
-    type: UserType,
-    args:{topic:{type: GraphQLNonNull(GraphQLID), resolve:async()=>{
-        let topic = await Topic.find({_id: args.topic})
-        return topic;
-    }}},
-    async resolve(parentValue, args, {user}){
-        let topic = await Topic.findById(args.topic)
-        let response = await User.update({_id: user.id}, {$addToSet:{topics: topic}})
-        if(response.nModified){
-            await Topic.update({_id: args.topic},{$inc:{subscribers: 1}})
-        }
-        let getUser = await User.findById(user.id)
-        return getUser
-    }
-}
 
-const unsubscribe = {
-    type: UserType,
-    args:{topic:{type: GraphQLNonNull(GraphQLID), resolve:async()=>{
-        let topic = await Topic.find({_id: args.topic})
-        return topic;
-    }}},
-    async resolve(parentValue, args, {user}){
-        let topic = await Topic.findById(args.topic)
-        let response = await User.update({_id: user.id}, {$addToSet:{topics: topic}})
-        if(response.nModified){
-            await Topic.update({_id: args.topic},{$inc:{subscribers: 1}})
-        }
-        let getUser = await User.findById(user.id)
-        return getUser
-    }
-}
+
 module.exports.login = login;
 module.exports.signUp = signUp;
 module.exports.deleteUser = deleteUser;
-module.exports.subscribe = subscribe;

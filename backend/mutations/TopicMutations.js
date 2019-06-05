@@ -1,9 +1,9 @@
-const {TopicType} = require('../types/TopicType')
-const Topic= require('../models/topic')
+
 const graphql = require('graphql')
 const {GraphQLNonNull, GraphQLString, GraphQLID} = graphql
 
-
+const {Topic} = require('../models/topic')
+const {TopicType} = require('../types/types')
 
 const createTopic = {
     type: TopicType,
@@ -43,22 +43,6 @@ const deleteTopic = {
     }
 }
 
-// be able to subscribe
-// be able to unsubscribe
-
-// //{
-//     "data": {
-//         "topics": [
-//           {
-//             "id": "5cf815f72fe3d4032ffd8438",
-//             "user": "5cf40acd1809f05aa01aa0d5",
-//             "users": [],
-//             "subscribers": 0,
-//             "threads": []
-//           }
-//         ]
-//       }
-//     }
 
 
 module.exports.createTopic = createTopic;
