@@ -26,6 +26,7 @@ const createThread = {
             user: user.id,
             upvotes: [],
             downvotes:[],
+            comments: [],
             total: 0,
         })
         const response = await newThread.save()

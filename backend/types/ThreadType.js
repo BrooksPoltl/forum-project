@@ -18,10 +18,12 @@ const ThreadType= new GraphQLObjectType({
     fields:()=>{
         const {UserType} = require('./UserType')
         const {TopicType} = require('./TopicType')
+        const {CommentType} = require('./CommentType')
         return{
         _id: {type: new GraphQLNonNull(GraphQLID)},
         title: {type: new GraphQLNonNull(GraphQLString)},
         description: {type: new GraphQLNonNull(GraphQLString)},
+        comments:{type: new GraphQLNonNull(GraphQLList(CommentType))},
         total: {type: new GraphQLNonNull(GraphQLInt), resolve(parentValue, args){
             let tally = parentValue.upvotes.length - parentValue.downvotes.length
             return tally
@@ -41,6 +43,13 @@ const ThreadType= new GraphQLObjectType({
                 return result.topic
             },
         },
+        createdAt:{type: new GraphQLNonNull(GraphQLString),resolve:async(parentValue,args)=>{
+            let result = await Thread.findById(parentValue._id)
+            console.log(result.createdAt)
+            let answer = result.createdAt.toString()
+            
+            return answer
+        }}
     }}
 })
 
