@@ -31,6 +31,6 @@ const CommentType= new GraphQLObjectType({
                 return result.thread
             }},
     }
-})//
+})
 
 module.exports.CommentType = CommentType;
