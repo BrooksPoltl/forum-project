@@ -15,7 +15,7 @@ const {ThreadType} = require('./ThreadType')
 const CommentType= new GraphQLObjectType({
     name: 'Comment',
     fields:{
-        id: {type: new GraphQLNonNull(GraphQLID)},
+        _id: {type: new GraphQLNonNull(GraphQLID)},
         content: {type: new GraphQLNonNull(GraphQLString)},
         upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
         downvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},

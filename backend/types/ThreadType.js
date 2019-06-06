@@ -19,7 +19,7 @@ const Topic = require('../models/topic');
 const ThreadType= new GraphQLObjectType({
     name: 'Thread',
     fields:()=>({
-        id: {type: new GraphQLNonNull(GraphQLID)},
+        _id: {type: new GraphQLNonNull(GraphQLID)},
         title: {type: new GraphQLNonNull(GraphQLString)},
         description: {type: new GraphQLNonNull(GraphQLString)},
         upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},

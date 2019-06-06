@@ -15,7 +15,7 @@ const UserType = new GraphQLObjectType({
     fields:()=>{
         const {TopicType} = require('./TopicType')
         return{
-        id: {type: new GraphQLNonNull(GraphQLID)},
+        _id: {type: new GraphQLNonNull(GraphQLID)},
         firstName: {type: new GraphQLNonNull(GraphQLString)},
         lastName: {type: new GraphQLNonNull(GraphQLString)},
         userName: {type: new GraphQLNonNull(GraphQLString)},
@@ -31,9 +31,9 @@ const UserType = new GraphQLObjectType({
         // },
         topics: {type: new GraphQLNonNull(GraphQLList(TopicType)),
             resolve:async(parentValue,args)=>{
-                let getUser = await Topic.find({users: {$in:{parentValue}}})
-                console.log(getUser)
-                return getUser
+                let result = await User.findById(parentValue._id)
+                
+                return [...result.topics]
             }
         },
 

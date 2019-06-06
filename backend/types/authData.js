@@ -10,7 +10,7 @@ const {
 const AuthType = new GraphQLObjectType({
     name: 'Auth',
     fields:()=>({
-        id: {type: new GraphQLNonNull(GraphQLID)},
+        _id: {type: new GraphQLNonNull(GraphQLID)},
         token: {type: new GraphQLNonNull(GraphQLString)}
     })
 })
