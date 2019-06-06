@@ -14,7 +14,11 @@ const commentSchema = new Schema({
         type: Array,
         required: true
     },
-    userId: {
+    total:{
+        type: Number,
+        required:true
+    },
+    user: {
         type: ObjectId,
         required: true
     },

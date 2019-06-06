@@ -10,7 +10,7 @@ const {
 
 
 
-const {Thread} = require('../models/models')
+const {Thread, Comment} = require('../models/models')
 
 
 const ThreadType= new GraphQLObjectType({
@@ -23,8 +23,11 @@ const ThreadType= new GraphQLObjectType({
         _id: {type: new GraphQLNonNull(GraphQLID)},
         title: {type: new GraphQLNonNull(GraphQLString)},
         description: {type: new GraphQLNonNull(GraphQLString)},
-        comments:{type: new GraphQLNonNull(GraphQLList(CommentType))},
-        total: {type: new GraphQLNonNull(GraphQLInt), resolve(parentValue, args){
+        comments:{type: new GraphQLNonNull(GraphQLList(CommentType)),resolve:async(parentValue,args)=>{
+            let result = await Thread.findById(parentValue.id)
+            return [...result.comments]
+        }},
+        total: {type: new GraphQLNonNull(GraphQLInt), resolve:(parentValue, args)=>{
             let tally = parentValue.upvotes.length - parentValue.downvotes.length
             return tally
         }},
