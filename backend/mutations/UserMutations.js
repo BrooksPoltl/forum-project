@@ -72,7 +72,7 @@ const login = {
             return {errorMessage: 'incorrect password'}
       }
       const response = jsonwebtoken.sign({id: user._id,email: user.email}, process.env.SECRET, { expiresIn: '1y' })
-      return {id: user._id, token: response}
+      return {_id: user._id, token: response}
     }
 }
 

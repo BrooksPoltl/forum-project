@@ -37,6 +37,7 @@ const deleteTopic = {
         let getTopic = await Topic.findById(args.topic)
         if(getTopic.user == user.id){
             let deleteComments = null;
+            let deleteSubscritions = await User.update({},{$pull:{topics:{_id: getTopic._id}}},{multi: true})
             let deleteThreads = await Thread.deleteMany({topic: getTopic})
             return Topic.deleteOne({_id: args.topic}).then(result=>{
                 return{_id: args.topic}
