@@ -29,7 +29,25 @@ const createThread = {
             total: 0,
         })
         const response = await newThread.save()
+
+    }
+}
+const deleteThread = {
+    type: ThreadType,
+    args: {
+        threadId:{type: GraphQLNonNull(GraphQLID), resolve:async()=>{
+            let thread = await Thread.find({_id: args.thread})
+            return thread;
+        }}
+    },
+    async resolve(parentValue,args, {user}){
+        return Thread.deleteOne({_id: args.threadId}).then(result=>{
+            return{_id: args.threadId}
+        }).catch(err=>{
+            throw err
+        })
     }
 }
 
 module.exports.createThread = createThread;
+module.exports.deleteThread = deleteThread;
