@@ -48,7 +48,6 @@ const ThreadType= new GraphQLObjectType({
         },
         createdAt:{type: new GraphQLNonNull(GraphQLString),resolve:async(parentValue,args)=>{
             let result = await Thread.findById(parentValue._id)
-            console.log(result.createdAt)
             let answer = result.createdAt.toString()
             
             return answer

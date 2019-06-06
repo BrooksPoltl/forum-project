@@ -30,6 +30,11 @@ const CommentType= new GraphQLObjectType({
                 let result = await Comment.findById(parentValue._id)
                 return result.thread
             }},
+        createdAt:{type: new GraphQLNonNull(GraphQLString),resolve:async(parentValue,args)=>{
+            let result = await Thread.findById(parentValue._id)
+            let answer = result.createdAt.toString()
+            return answer
+            }}
     }
 })
 
