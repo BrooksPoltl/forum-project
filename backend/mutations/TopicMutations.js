@@ -2,7 +2,7 @@
 const graphql = require('graphql')
 const {GraphQLNonNull, GraphQLString, GraphQLID} = graphql
 
-const {Topic,User, Thread} = require('../models/models')
+const {Topic,User, Thread, Comment} = require('../models/models')
 const {TopicType} = require('../types/types')
 
 const createTopic = {
@@ -36,7 +36,11 @@ const deleteTopic = {
     async resolve(parentValue,args, {user}){
         let getTopic = await Topic.findById(args.topic)
         if(getTopic.user == user.id){
-            let deleteComments = null;
+            let findThreads = await Thread.find({topic: getTopic})
+            for(let i = 0; i<findThreads.length; i++){
+                let curr = findThreads[i];
+                await Comment.deleteMany({thread: curr});
+            }
             let deleteSubscritions = await User.update({},{$pull:{topics:{_id: getTopic._id}}},{multi: true})
             let deleteThreads = await Thread.deleteMany({topic: getTopic})
             return Topic.deleteOne({_id: args.topic}).then(result=>{
