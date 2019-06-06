@@ -22,7 +22,7 @@ const topicSchema = new Schema({
     },
     users: {
         type: Array,
-        required: true
+        required: false
     }
 })
 

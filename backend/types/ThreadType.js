@@ -33,4 +33,4 @@ const ThreadType= new GraphQLObjectType({
     })
 })
 
-module.exports.ThreadType = ThreadType;
+module.exports.ThreadType= ThreadType;

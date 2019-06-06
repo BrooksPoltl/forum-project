@@ -20,10 +20,10 @@ const CommentType= new GraphQLObjectType({
         upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
         downvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
         userId: {type: new GraphQLNonNull(GraphQLID)},
-        thread: {type: new GraphQLNonNull(ThreadType),
-            resolve:(parentValue, args)=>{
-                return args.thread
-            }},
+        // thread: {type: new GraphQLNonNull(ThreadType),
+        //     resolve:(parentValue, args)=>{
+        //         return args.thread
+        //     }},
     }
 })
 

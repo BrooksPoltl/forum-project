@@ -34,7 +34,7 @@ const userSchema = new Schema({
     },
     topics:{
         type: Array,
-        required: true
+        required: false
     },
     threads:{
         type: Array,
