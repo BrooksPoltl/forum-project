@@ -7,13 +7,14 @@ const {
     GraphQLNonNull,
 } = graphql;
 
-const {User, Topic} = require('../models/models');
+const {User, Topic,Thread} = require('../models/models');
 
 
 const UserType = new GraphQLObjectType({
     name: 'User',
     fields:()=>{
         const {TopicType} = require('./TopicType')
+        const {ThreadType} = require('./ThreadType')
         return{
         _id: {type: new GraphQLNonNull(GraphQLID)},
         firstName: {type: new GraphQLNonNull(GraphQLString)},
@@ -37,13 +38,12 @@ const UserType = new GraphQLObjectType({
             }
         },
 
-        // threads: {type: new GraphQLNonNull(GraphQLList(ThreadType)),
-        //     resolve:async(parentValue,args, {user})=>{
-        //         let getUser = await Model.User.find({_id:parentValue.id})
-        //         getUser = getUser[0];
-        //         return getUser.threads
-        //     }
-        // },   
+        threads: {type: new GraphQLNonNull(GraphQLList(ThreadType)),
+            resolve:async(parentValue,args, {user})=>{
+                let getThreads = await Thread.find({user: user.id})
+                return [...getThreads]
+            }
+        },   
     }}
 })
 

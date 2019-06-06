@@ -9,28 +9,39 @@ const {
 } = graphql;
 
 
-const {UserType} = require('./UserType')
-const {TopicType} = require('./TopicType')
 
+const {Thread} = require('../models/models')
 
-const User = require('../models/user');
-const Topic = require('../models/topic');
 
 const ThreadType= new GraphQLObjectType({
     name: 'Thread',
-    fields:()=>({
+    fields:()=>{
+        const {UserType} = require('./UserType')
+        const {TopicType} = require('./TopicType')
+        return{
         _id: {type: new GraphQLNonNull(GraphQLID)},
         title: {type: new GraphQLNonNull(GraphQLString)},
         description: {type: new GraphQLNonNull(GraphQLString)},
-        upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
-        downvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
-        userId: {type: new GraphQLNonNull(GraphQLID)},
+        total: {type: new GraphQLNonNull(GraphQLInt), resolve(parentValue, args){
+            let tally = parentValue.upvotes.length - parentValue.downvotes.length
+            return tally
+        }},
+        upvotes: {type: new GraphQLNonNull(GraphQLList(UserType)),resolve:async(parentValue, args)=>{
+            let result = await Thread.findById(parentValue._id)
+            return [...result.upvotes]
+        }},
+        downvotes: {type: new GraphQLNonNull(GraphQLList(UserType)),resolve:async(parentValue,args)=>{
+            let result = await Thread.findById(parentValue._id)
+            return [...result.downvotes]
+        }},
+        user: {type: new GraphQLNonNull(GraphQLID)},
         topic: {type: new GraphQLNonNull(TopicType),
-            resolve:(parentValue,args)=>{
-                return args.topic
+            resolve:async(parentValue,args)=>{
+                let result = await Thread.findById(parentValue._id)
+                return result.topic
             },
         },
-    })
+    }}
 })
 
 module.exports.ThreadType= ThreadType;

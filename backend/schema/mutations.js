@@ -1,6 +1,7 @@
 const graphql = require('graphql');
 const {signUp,login, deleteUser} = require('../mutations/UserMutations')
 const {createTopic, deleteTopic, subscribe, unsubscribe} = require('../mutations/TopicMutations')
+const {createThread} = require('../mutations/ThreadMutations')
 const {GraphQLObjectType} = graphql;
 
 const mutation = new GraphQLObjectType({
@@ -12,7 +13,8 @@ const mutation = new GraphQLObjectType({
         createTopic,
         deleteTopic,
         subscribe,
-        unsubscribe
+        unsubscribe,
+        createThread
     }
 })
 

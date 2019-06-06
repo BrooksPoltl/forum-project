@@ -12,6 +12,10 @@ const threadSchema = new Schema({
         type: String,
         required: true
     },
+    total:{
+        type: Number,
+        required:true
+    },
     upvotes: {
         type: Array,
         required: true
@@ -20,7 +24,7 @@ const threadSchema = new Schema({
         type: Array,
         required: true
     },
-    userId: {
+    user: {
         type: ObjectId,
         required: true
     },
