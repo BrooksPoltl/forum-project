@@ -2,7 +2,7 @@
 const graphql = require('graphql')
 const {GraphQLNonNull, GraphQLString, GraphQLID} = graphql
 
-const {Topic,User} = require('../models/models')
+const {Topic,User, Thread} = require('../models/models')
 const {TopicType} = require('../types/types')
 
 const createTopic = {
@@ -34,11 +34,17 @@ const deleteTopic = {
         }}
     },
     async resolve(parentValue,args, {user}){
-        return Topic.deleteOne({_id: args.topic}).then(result=>{
-            return{id: args.topic}
-        }).catch(err=>{
-            throw err
-        })
+        let getTopic = await Topic.findById(args.topic)
+        if(getTopic.user == user.id){
+            let deleteComments = null;
+            let deleteThreads = await Thread.deleteMany({topic: getTopic})
+            return Topic.deleteOne({_id: args.topic}).then(result=>{
+                return{_id: args.topic}
+            }).catch(err=>{
+                throw err
+            })
+        }
+        
     }
 }
 
