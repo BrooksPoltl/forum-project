@@ -7,7 +7,7 @@ const {
     GraphQLNonNull,
 } = graphql;
 
-const {User, Topic,Thread} = require('../models/models');
+const {User, Topic,Thread, Comment} = require('../models/models');
 
 
 const UserType = new GraphQLObjectType({
@@ -15,6 +15,7 @@ const UserType = new GraphQLObjectType({
     fields:()=>{
         const {TopicType} = require('./TopicType')
         const {ThreadType} = require('./ThreadType')
+        const {CommentType} = require('./CommentType')
         return{
         _id: {type: new GraphQLNonNull(GraphQLID)},
         firstName: {type: new GraphQLNonNull(GraphQLString)},
@@ -23,13 +24,12 @@ const UserType = new GraphQLObjectType({
         profilePicture: {type: new GraphQLNonNull(GraphQLString)},
         email: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)},
-        // comments: {type: new GraphQLNonNull(GraphQLList(CommentType)),
-        //     resolve:async(parentValue,args)=>{
-        //         let getUser = await Model.User.find({_id:parentValue.id})
-        //         getUser = getUser[0];
-        //         return getUser.comments
-        //     }
-        // },
+        comments: {type: new GraphQLNonNull(GraphQLList(CommentType)),
+            resolve:async(parentValue,args)=>{
+                let getComments = await Comment.find({user: user.id})
+                return [...getComments]
+            }
+        },
         topics: {type: new GraphQLNonNull(GraphQLList(TopicType)),
             resolve:async(parentValue,args)=>{
                 let result = await User.findById(parentValue._id)

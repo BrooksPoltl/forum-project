@@ -29,4 +29,39 @@ const createComment = {
     }
 }
 
+const upvoteComment= {
+    type: CommentType,
+    args:{
+        commentId:{type: GraphQLNonNull(GraphQLID), resolve:async()=>{
+            let comment = await Comment.find({_id: args.commentId})
+            return comment;
+        }}
+    },
+    async resolve(parentValue,args, {user}){
+        let getUser = await User.findById(user.id)
+        let updateUpvotes = await Comment.update({_id: args.commentId},{$addToSet: {upvotes:getUser}})
+        let updateDownvotes = await Comment.update({_id: args.commentId},{$pull: {downvotes:getUser}})
+        let updatedComment = await Comment.findById(args.commentId)
+        return updatedComment
+    }
+}
+const downvoteComment= {
+    type: CommentType,
+    args:{
+        commentId:{type: GraphQLNonNull(GraphQLID), resolve:async()=>{
+            let comment = await Comment.find({_id: args.commentId})
+            return comment;
+        }}
+    },
+    async resolve(parentValue,args, {user}){
+        let getUser = await User.findById(user.id)
+        let updateUpvotes = await Comment.update({_id: args.commentId},{$pull: {upvotes:getUser}})
+        let updateDownvotes = await Comment.update({_id: args.commentId},{$addToSet: {downvotes:getUser}})
+        let updatedComment = await Comment.findById(args.commentId)
+        return updatedComment
+    }
+}
+
 module.exports.createComment = createComment;
+module.exports.upvoteComment = upvoteComment;
+module.exports.downvoteComment = downvoteComment;
