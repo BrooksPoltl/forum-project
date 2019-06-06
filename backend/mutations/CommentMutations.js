@@ -3,7 +3,7 @@ const graphql = require('graphql')
 const {GraphQLNonNull, GraphQLString,GraphQLID} = graphql
 
 const {CommentType} = require('../types/types')
-const {Comment, Thread} = require('../models/models')
+const {Comment, Thread, User} = require('../models/models')
 
 const createComment = {
     type: CommentType,
@@ -61,7 +61,28 @@ const downvoteComment= {
         return updatedComment
     }
 }
+const deleteComment = {
+    type: CommentType,
+    args: {
+        commentId:{type: GraphQLNonNull(GraphQLID), resolve:async()=>{
+            let comment = await Comment.find({_id: args.commentId})
+            return comment;
+        }}
+    },
+    async resolve(parentValue,args, {user}){
+        let getComment = await Comment.findById(args.commentId)
+        if(getComment.user == user.id){
+
+            return Thread.deleteOne({_id: args.threadId}).then(result=>{
+                return{_id: args.threadId}
+                }).catch(err=>{
+                    throw err
+            })
+        }
+    }
+}
 
 module.exports.createComment = createComment;
 module.exports.upvoteComment = upvoteComment;
 module.exports.downvoteComment = downvoteComment;
+module.exports.deleteComment = deleteComment;

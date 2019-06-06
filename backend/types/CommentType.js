@@ -15,11 +15,19 @@ const {Comment} = require('../models/models')
 
 const CommentType= new GraphQLObjectType({
     name: 'Comment',
-    fields:{
+    fields:()=>{
+    const {UserType} = require('./UserType')
+    return{
         _id: {type: new GraphQLNonNull(GraphQLID)},
         content: {type: new GraphQLNonNull(GraphQLString)},
-        upvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
-        downvotes: {type: new GraphQLNonNull(GraphQLList(GraphQLInt))},
+        upvotes: {type: new GraphQLNonNull(GraphQLList(UserType)),resolve:async(parentValue, args)=>{
+            let result = await Comment.findById(parentValue._id)
+            return [...result.upvotes]
+        }},
+        downvotes: {type: new GraphQLNonNull(GraphQLList(UserType)),resolve:async(parentValue,args)=>{
+            let result = await Comment.findById(parentValue._id)
+            return [...result.downvotes]
+        }},
         total: {type: new GraphQLNonNull(GraphQLInt), resolve:(parentValue, args)=>{
             let tally = parentValue.upvotes.length - parentValue.downvotes.length
             return tally
@@ -35,7 +43,7 @@ const CommentType= new GraphQLObjectType({
             let answer = result.createdAt.toString()
             return answer
             }}
-    }
+    }}
 })
 
 module.exports.CommentType = CommentType;

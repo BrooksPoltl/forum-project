@@ -25,7 +25,7 @@ const UserType = new GraphQLObjectType({
         email: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)},
         comments: {type: new GraphQLNonNull(GraphQLList(CommentType)),
-            resolve:async(parentValue,args)=>{
+            resolve:async(parentValue,args,{user})=>{
                 let getComments = await Comment.find({user: user.id})
                 return [...getComments]
             }
