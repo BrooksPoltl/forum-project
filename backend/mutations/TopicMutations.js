@@ -63,7 +63,24 @@ const subscribe = {
         return updatedTopic
     }
 }
+const unsubscribe = {
+    type: TopicType,
+    args:{id:{type: GraphQLNonNull(GraphQLID)}},
+    async resolve(parentValue,args,{user}){
+        let topic = await Topic.find({_id: args.id})
+        topic = topic[0]
+        let userObj = await User.find({_id: user.id})
+        userObj = userObj[0]
+        
+        await Topic.update({_id: topic._id},{$pull:{users:userObj}})
+        await User.update({_id: topic._id},{$pull:{topics:topic}})
+        let updatedTopic = await Topic.find({_id:args.id})
+        updatedTopic = updatedTopic[0]
+        return updatedTopic
+    }
+}
 
 module.exports.createTopic = createTopic;
 module.exports.deleteTopic = deleteTopic;
 module.exports.subscribe = subscribe;
+module.exports.unsubscribe = unsubscribe;
