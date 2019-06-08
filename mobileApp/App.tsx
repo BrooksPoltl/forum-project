@@ -4,7 +4,7 @@ import {NativeRouter, Link} from 'react-router-native'
 import { Navigation, Card } from 'react-router-navigation'
 
 import {HomePage} from './components/homepage'
-
+import {SignUp} from './components/SignUp/signup'
 
 
 export default class App extends React.Component{
@@ -24,7 +24,9 @@ export default class App extends React.Component{
             />
           <Card 
             path ="/signup"
-            render = {()=><Text>Signup</Text>}
+            render = {()=>
+            <SignUp/>
+          }
             />
         </Navigation>
       </NativeRouter>

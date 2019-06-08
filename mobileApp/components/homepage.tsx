@@ -5,7 +5,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 import {Link} from 'react-router-native'
 
 
-export const HomePage = (props: any)=>{
+export const HomePage = ()=>{
     return (
         <View style = {styles.container}>
             <Text style = {styles.title}>Symposium</Text>
