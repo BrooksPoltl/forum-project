@@ -1,10 +1,12 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-
+import {CharlstonGreen, bubbles} from './assets/designVariables';
+import {HomePage} from './components/homepage'
 export default function App() {
   return (
     <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
+      <HomePage/>
+      <Text>Check</Text>
     </View>
   );
 }
@@ -12,7 +14,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: bubbles,
     alignItems: 'center',
     justifyContent: 'center',
   },
