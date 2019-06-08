@@ -2,19 +2,20 @@ import React, {useState} from 'react';
 import { StyleSheet,TouchableOpacity, Text, View } from 'react-native';
 import {charlstonGreen, deFrance, bubbles} from '../assets/designVariables';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
-// homepage
-export const HomePage = ()=>{
-    const [count, setCount] = useState(0);
+import {Link} from 'react-router-native'
+
+
+export const HomePage = (props: any)=>{
     return (
         <View style = {styles.container}>
             <Text style = {styles.title}>Symposium</Text>
             <View style = {styles.buttonContainer}>
-                <TouchableOpacity style = {styles.buttons} onPress = {()=> setCount(count+1)}>
+                <Link style = {styles.buttons} to = "/login">
                     <Text style = {styles.buttonText}>login</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style = {styles.buttons} onPress = {()=> setCount(count+1)}>
+                </Link>
+                <Link style = {styles.buttons} to = "/signup">
                     <Text style = {styles.buttonText}>sign up</Text>
-                </TouchableOpacity>
+                </Link>
             </View>
         </View>
     )
@@ -22,7 +23,6 @@ export const HomePage = ()=>{
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#FFFFFF',
         borderColor: charlstonGreen,
         alignItems: 'center',
         width: wp('100%'),
@@ -43,7 +43,6 @@ const styles = StyleSheet.create({
         color: charlstonGreen,
     },
     buttons:{
-        color: charlstonGreen,
         borderRadius: 4,
         borderWidth: 2,
         borderColor: charlstonGreen,
@@ -58,5 +57,9 @@ const styles = StyleSheet.create({
         color: bubbles,
         fontSize: 20,
     },
+    linkStyle:{
+        width:wp('100%'),
+
+    }
   });
   

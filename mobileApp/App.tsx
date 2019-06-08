@@ -1,20 +1,34 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import {charlstonGreen, bubbles} from './assets/designVariables';
+import {Text} from 'react-native'
+import {NativeRouter, Link} from 'react-router-native'
+import { Navigation, Card } from 'react-router-navigation'
+
 import {HomePage} from './components/homepage'
-export default function App() {
-  return (
-    <View style={styles.container}>
-      <HomePage/>
-    </View>
-  );
+
+
+
+export default class App extends React.Component{
+  render(){
+    return (
+      <NativeRouter>
+        <Navigation>
+          <Card
+            exact
+            path = "/"
+            render ={()=>(
+                <HomePage/>
+            )}/>
+          <Card 
+            path ="/login"
+            render = {()=><Text>Login</Text>}
+            />
+          <Card 
+            path ="/signup"
+            render = {()=><Text>Signup</Text>}
+            />
+        </Navigation>
+      </NativeRouter>
+    );
+  }
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#FFFFFF',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
