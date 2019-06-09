@@ -4,13 +4,21 @@ import {charlstonGreen, deFrance, bubbles} from '../../assets/designVariables';
 import {SignUpForm} from './signupform'
 
 export const SignUp = ()=>{
-    const [user,setUser] = useState({});
+    const [user,setUser] = useState({
+        firstName: '',
+        lastName: '',
+        userName: '',
+        email: '',
+        password: '',
+        profilePicture: ''
+    });
     return (
         <View>
-            <Text>Signup for Symposium</Text>
+            <Text>Symposium</Text>
+            <Text>Signup</Text>
             <Text>Join the conversation</Text>
-            <SignUpForm setUser = {setUser}/>
-            <TouchableOpacity>
+            <SignUpForm user = {user} setUser = {setUser}/>
+            <TouchableOpacity onPress = {()=>console.log(user)}>
                     <Text>Submit</Text>
             </TouchableOpacity>
         </View>
