@@ -126,16 +126,130 @@ describe('Topic Queries', ()=>{
     })
     describe('topic',()=>{
         describe('basic topic query',()=>{
-
+            it('should be valid query',()=>{
+                const query = `
+                    {
+                        topic(id: ""){
+                            _id
+                        }
+                    }
+                `
+                tester.test(true, query)
+            })
+            it('should be invalid query',()=>{
+                const query = `
+                    {
+                        topic(id: ""){
+                            _id
+                            us
+                        }
+                    }
+                `   
+                tester.test(false, query)
+            })
+            it('should have to take in ID',()=>{
+                const query = `
+                    {
+                        topic{
+                            _id
+                        }
+                    }
+                `
+                tester.test(false, query)
+            })
         })
         describe('accessing comments from topic',()=>{
-
+            it('should be able to access comments',()=>{
+                const query = `
+                    {
+                        topic(id: ""){
+                            _id
+                            threads{
+                                comments{
+                                    _id
+                                }
+                            }
+                            
+                        }
+                    }
+                `
+                tester.test(true, query)
+            })
+            it('should not take invalid comment value',()=>{
+                const query = `
+                    {
+                        topic(id: ""){
+                            _id
+                            threads{
+                                comments{
+                                    _id
+                                    r
+                                }
+                            }
+                            
+                        }
+                    }
+                `   
+                tester.test(false, query)
+            })
         })
-        describe('accessing topics from topic',()=>{
-
+        describe('accessing users from topic',()=>{
+            it('should be able to access users',()=>{
+                const query = `
+                    {
+                        topic(id: ""){
+                            _id
+                            users{
+                                _id
+                            }
+                        }
+                    }
+                `
+                tester.test(true, query)
+            })
+            it('should not take invalid user value',()=>{
+                const query = `
+                    {
+                        topic(id: ""){
+                            _id
+                            users{
+                                _id
+                                r
+                            }
+                        }
+                    }
+                `   
+                tester.test(false, query)
+            })
         })
         describe('accessing threads from topic',()=>{
-
+            it('should be able to access threads',()=>{
+                const query = `
+                    {
+                        topic(id: ""){
+                            _id
+                            threads{
+                                _id
+                            }
+                        }
+                    }
+                `
+                tester.test(true, query)
+            })
+            it('should not take invalid thread value',()=>{
+                const query = `
+                    {
+                        topic(id: ""){
+                            _id
+                            threads{
+                                _id
+                                r
+                            }
+                        }
+                    }
+                `   
+                tester.test(false, query)
+            })
         })
     })
 })
