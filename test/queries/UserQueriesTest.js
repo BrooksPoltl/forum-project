@@ -1,7 +1,4 @@
-const assert = require('chai').assert;
-const app = require('../../server');
-const fs = require('fs')
-const path = require('path')
+
 const schemaCode = require('../../backend/schema/schema')
 const EasyGraphQLTester = require('easygraphql-tester')
 describe('User Queries', ()=>{

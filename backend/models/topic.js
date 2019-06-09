@@ -12,10 +12,6 @@ const topicSchema = new Schema({
         type: Number,
         required: true
     },
-    comments:{
-        type: Array,
-        required:true
-    },
     threads: {
         type: Array,
         required: true
