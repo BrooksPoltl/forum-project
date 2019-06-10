@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     buttonText:{
-        color: bubbles,
+        color: '#FFFFFF',
         fontSize: 20,
     },
     linkStyle:{
