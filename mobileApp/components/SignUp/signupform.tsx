@@ -6,6 +6,7 @@ import {
     View,
     ScrollView, 
     } from 'react-native';
+import {KeyboardAwareScrollView} from 'react-native-keyboard-aware-scroll-view'
 import {charlstonGreen, deFrance, bubbles} from '../../assets/designVariables';
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
 export const SignUpForm = (props)=>{
@@ -29,62 +30,67 @@ export const SignUpForm = (props)=>{
     }
     
     return (
-        <ScrollView style = {styles.scrollContainer}> 
+        <KeyboardAwareScrollView style = {styles.scrollContainer}> 
             <View>
                 <View>
                     <TextInput
                         placeholder = "First Name"
                         value = {props.user.firstName}
                         onChangeText = {handleFirstName}
+                        placeholderTextColor = {charlstonGreen}
                         style = {styles.input}
                     />
                     <TextInput
                         placeholder = "Last Name"
                         value = {props.user.lastName}
                         onChangeText = {handleLastName}
+                        placeholderTextColor = {charlstonGreen}
                         style = {styles.input}
                     />
                     <TextInput
                         placeholder = "username"
                         value = {props.user.userName}
                         onChangeText = {handleUserName}
+                        placeholderTextColor = {charlstonGreen}
                         style = {styles.input}
                     />
                     <TextInput
                         placeholder = "Email"
                         value = {props.user.email}
                         onChangeText = {handleEmail}
+                        placeholderTextColor = {charlstonGreen}
                         style = {styles.input}
                     />
                     <TextInput
                         placeholder = "Password"
                         value = {props.user.password}
                         onChangeText = {handlePassword}
+                        placeholderTextColor = {charlstonGreen}
+                        secureTextEntry = {true}
                         style = {styles.input}
                     />
                     <TextInput
                         placeholder = "Profile Picture"
                         value = {props.user.profilePicture}
                         onChangeText = {handlePicture}
+                        placeholderTextColor = {charlstonGreen}
                         style = {styles.input}
                     />
                 </View>
             </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
     )
 }
 const styles = StyleSheet.create({
     scrollContainer: {
-        borderRadius: 4,
-        borderWidth: 3,
-        borderColor: '#d6d7da',
         width: wp('100%'),
     },
     input:{
         height: 40,
         margin: 10,
-        borderBottomColor: 'black',
-        borderBottomWidth: 1,
+        borderBottomColor: deFrance,
+        borderBottomWidth: 3,
+        backgroundColor: bubbles,
         padding: 10,
     }
 })
