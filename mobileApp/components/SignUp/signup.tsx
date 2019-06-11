@@ -2,7 +2,21 @@ import React, {useState, useEffect} from 'react';
 import { StyleSheet,TouchableOpacity, Text, View } from 'react-native';
 import {charlstonGreen, deFrance, bubbles} from '../../assets/designVariables';
 import {SignUpForm} from './signupform'
+import {Link} from 'react-router-native'
+import {Mutation} from 'react-apollo'
+import gql from 'graphql-tag'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
+
+
+
+const REGISTER  = gql`
+    mutation signUp($firstName: String!,$lastName: String!, $userName: String!, $profilePicture: String, $email: String!, $password: String!){
+        signUp(firstName: $firstName, lastName: $lastName, userName: $userName, profilePicture: $profilePicture, email: $email, password: $password){
+            _id
+        }
+    }
+`
+
 
 export const SignUp = ()=>{
     const [user,setUser] = useState({
@@ -13,16 +27,60 @@ export const SignUp = ()=>{
         password: '',
         profilePicture: ''
     });
+    const [missing, setMissing] = useState("null")
+    const [submitted, setSubmitted] = useState(false)
+    const handleSubmit = (register) =>{
+        if(!user.firstName){
+            return setMissing("firstName")
+        }else if(!user.lastName){
+            return setMissing("lastName")
+        }else if(!user.userName){
+            return setMissing("userName")
+        }else if(!user.email){
+            return setMissing("email")
+        }else if(!user.password){
+            return setMissing("password")
+        }
+       register({variables:{firstName: user.firstName, lastName: user.lastName, userName:user.userName,email: user.email,password: user.password,profilePicture: user.profilePicture}});
+        setUser({
+        firstName: '',
+        lastName: '',
+        userName: '',
+        email: '',
+        password: '',
+        profilePicture: ''})
+        return setMissing("")
+    }
     return (
-        <View style = {styles.container}>
+        <Mutation mutation = {REGISTER}>{(register, {data,error})=>{
+            if(submitted)return <View style = {styles.container}>
+                <Text>Thank you for joining Symposium!</Text> 
+                <Link style = {styles.link}to = "/">
+                    <Text style = {styles.buttonText}>back to home</Text>
+                </Link>
+            </View>
+            if (!submitted)return(
+            <View style = {styles.container}>
             <Text style = {styles.h1}>Symposium</Text>
             <Text style = {styles.h2}>Signup</Text>
             <Text style = {styles.h3}>Join the conversation</Text>
-            <SignUpForm user = {user} setUser = {setUser}/>
-            <TouchableOpacity style = {styles.button} onPress = {()=>console.log(user)}>
+            <SignUpForm error = {error} missing = {missing}user = {user} setUser = {setUser}/>
+            {error?<Text style = {styles.errorText}>Username or password already exist</Text>:null}
+            <TouchableOpacity style = {styles.button} onPress = {()=>{
+               handleSubmit(register)
+               console.log(missing)
+               console.log(data)
+               if(!error && missing == ""){
+                    console.log('dasd')
+                   setSubmitted(true)
+
+               }
+            }}>
                     <Text style = {styles.buttonText}>Submit</Text>
             </TouchableOpacity>
         </View>
+        )}}
+        </Mutation>
     )
 }
 const styles = StyleSheet.create({
@@ -56,8 +114,25 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center'
     },
+    link:{
+        borderRadius: 4,
+        borderWidth: 2,
+        borderColor: charlstonGreen,
+        backgroundColor: deFrance,
+        height: 40,
+        width: wp('60%'),
+        margin: 20,
+        flex: 1,
+        alignItems: 'center',
+        justifyContent: 'center'
+    },
     buttonText:{
         color: '#FFFFFF',
         fontSize: 20,
     },
+    errorText:{
+        color: 'red',
+        padding: 0,
+        margin: 0,
+    }
 })

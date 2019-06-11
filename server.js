@@ -32,7 +32,8 @@ app.use('/graphql', expressGraphQL(req=>({
     graphiql: true,
     context: {
         user: req.user
-    }
+    },
+
 })))
 
 const port = process.env.PORT || 4000;

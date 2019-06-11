@@ -8,7 +8,9 @@ import {ApolloProvider} from 'react-apollo'
 import {HomePage} from './components/homepage'
 import {SignUp} from './components/SignUp/signup'
 
-const client = new ApolloClient()
+const client = new ApolloClient({
+  uri: "https://symposium-forum-project.herokuapp.com/graphql"
+})
 
 
 export default class App extends React.Component{

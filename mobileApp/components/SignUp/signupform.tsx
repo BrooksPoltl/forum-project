@@ -29,7 +29,7 @@ export const SignUpForm = (props)=>{
         props.setUser({...props.user, profilePicture: profilePicture})
     }
     
-    return (
+    if(1)return (
         <KeyboardAwareScrollView style = {styles.scrollContainer}> 
             <View>
                 <View>
@@ -40,7 +40,7 @@ export const SignUpForm = (props)=>{
                             value = {props.user.firstName}
                             onChangeText = {handleFirstName}
                             placeholderTextColor = {charlstonGreen}
-                            style = {styles.input}
+                            style = {props.missing === "firstName"?styles.invalidInput:styles.input}
                         />
                     </View>
                     <View style = {styles.inputContainer}>
@@ -50,7 +50,7 @@ export const SignUpForm = (props)=>{
                         value = {props.user.lastName}
                         onChangeText = {handleLastName}
                         placeholderTextColor = {charlstonGreen}
-                        style = {styles.input}
+                        style = {props.missing === "lastName"?styles.invalidInput:styles.input}
                     />
                     </View>
                     <View style = {styles.inputContainer}>
@@ -60,7 +60,7 @@ export const SignUpForm = (props)=>{
                         value = {props.user.userName}
                         onChangeText = {handleUserName}
                         placeholderTextColor = {charlstonGreen}
-                        style = {styles.input}
+                        style = {props.missing === "userName"?styles.invalidInput:styles.input}
                     />
                     </View>
                     <View style = {styles.inputContainer}>
@@ -70,7 +70,7 @@ export const SignUpForm = (props)=>{
                         value = {props.user.email}
                         onChangeText = {handleEmail}
                         placeholderTextColor = {charlstonGreen}
-                        style = {styles.input}
+                        style = {props.missing === "email"?styles.invalidInput:styles.input}
                     />
                     </View>
                     <View style = {styles.inputContainer}>
@@ -81,7 +81,7 @@ export const SignUpForm = (props)=>{
                         onChangeText = {handlePassword}
                         placeholderTextColor = {charlstonGreen}
                         secureTextEntry = {true}
-                        style = {styles.input}
+                        style = {props.missing === "password"?styles.invalidInput:styles.input}
                     />
                     </View>
 
@@ -107,6 +107,15 @@ const styles = StyleSheet.create({
         height: 40,
         margin: 10,
         borderBottomColor: deFrance,
+        borderBottomWidth: 3,
+        backgroundColor: bubbles,
+        padding: 10,
+        width: wp('90%')
+    },
+    invalidInput:{
+        height: 40,
+        margin: 10,
+        borderBottomColor: 'red',
         borderBottomWidth: 3,
         backgroundColor: bubbles,
         padding: 10,

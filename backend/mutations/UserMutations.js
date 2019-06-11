@@ -36,10 +36,13 @@ const signUp = {
         }
         if(checkUser.length == 0 && checkEmail.length == 0){
             const response = await newUser.save();
+            let user = await User.find({userName: args.userName})
+            user = user[0]
+            return {...args, _id: user._id }
         }else if(checkUser.length!= 0){
-            throw {errorMessage: 'username already exist'}
+            throw  Error({errorMessage: 'username already exist'})
         }else{
-            throw {errorMessage: 'email already exist'}
+            throw Error({errorMessage: 'email already exist'})
         }
         
     }
