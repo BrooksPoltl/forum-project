@@ -12,7 +12,7 @@ import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-nativ
 const REGISTER  = gql`
     mutation signUp($firstName: String!,$lastName: String!, $userName: String!, $profilePicture: String, $email: String!, $password: String!){
         signUp(firstName: $firstName, lastName: $lastName, userName: $userName, profilePicture: $profilePicture, email: $email, password: $password){
-            _id
+            errorMessage
         }
     }
 `

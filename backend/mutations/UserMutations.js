@@ -40,9 +40,9 @@ const signUp = {
             user = user[0]
             return {...args, _id: user._id }
         }else if(checkUser.length!= 0){
-            throw  Error({errorMessage: 'username already exist'})
+            return {errorMessage: 'username already exist'}
         }else{
-            throw Error({errorMessage: 'email already exist'})
+            return {errorMessage: 'email already exist'}
         }
         
     }

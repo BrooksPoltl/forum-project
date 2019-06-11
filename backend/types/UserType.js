@@ -44,6 +44,7 @@ const UserType = new GraphQLObjectType({
                 return [...getThreads]
             }
         },   
+        errorMessage: {type: GraphQLString}
     }}
 })
 
