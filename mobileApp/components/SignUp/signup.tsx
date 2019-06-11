@@ -29,7 +29,7 @@ export const SignUp = ()=>{
     });
     const [missing, setMissing] = useState("null")
     const [submitted, setSubmitted] = useState(false)
-    const handleSubmit = (register) =>{
+    const handleSubmit = async(register,data) =>{
         if(!user.firstName){
             return setMissing("firstName")
         }else if(!user.lastName){
@@ -41,7 +41,7 @@ export const SignUp = ()=>{
         }else if(!user.password){
             return setMissing("password")
         }
-       register({variables:{firstName: user.firstName, lastName: user.lastName, userName:user.userName,email: user.email,password: user.password,profilePicture: user.profilePicture}});
+        await register({variables:{firstName: user.firstName, lastName: user.lastName, userName:user.userName,email: user.email,password: user.password,profilePicture: user.profilePicture}});
         setUser({
         firstName: '',
         lastName: '',
@@ -49,11 +49,12 @@ export const SignUp = ()=>{
         email: '',
         password: '',
         profilePicture: ''})
-        return setMissing("")
+        setMissing("")
+        return data
     }
     return (
         <Mutation mutation = {REGISTER}>{(register, {data,error})=>{
-            if(submitted)return <View style = {styles.container}>
+            if(data) if(data.signUp.errorMessage == null)return <View style = {styles.container}>
                 <Text>Thank you for joining Symposium!</Text> 
                 <Link style = {styles.link}to = "/">
                     <Text style = {styles.buttonText}>back to home</Text>
@@ -65,16 +66,13 @@ export const SignUp = ()=>{
             <Text style = {styles.h2}>Signup</Text>
             <Text style = {styles.h3}>Join the conversation</Text>
             <SignUpForm error = {error} missing = {missing}user = {user} setUser = {setUser}/>
-            {error?<Text style = {styles.errorText}>Username or password already exist</Text>:null}
-            <TouchableOpacity style = {styles.button} onPress = {()=>{
-               handleSubmit(register)
-               console.log(missing)
-               console.log(data)
-               if(!error && missing == ""){
-                    console.log('dasd')
-                   setSubmitted(true)
-
-               }
+            {data? data.signUp.errorMessage? data.signUp.errorMessage === "username already exist"?
+            <Text style = {styles.errorText}>Username already exist</Text>:
+            <Text style = {styles.errorText}>Email already exist</Text>
+            :null:null}
+            <TouchableOpacity style = {styles.button} onPress = {async()=>{
+               await handleSubmit(register, data)
+               
             }}>
                     <Text style = {styles.buttonText}>Submit</Text>
             </TouchableOpacity>
