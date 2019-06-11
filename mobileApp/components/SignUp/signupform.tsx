@@ -33,13 +33,18 @@ export const SignUpForm = (props)=>{
         <KeyboardAwareScrollView style = {styles.scrollContainer}> 
             <View>
                 <View>
-                    <TextInput
-                        placeholder = "First Name"
-                        value = {props.user.firstName}
-                        onChangeText = {handleFirstName}
-                        placeholderTextColor = {charlstonGreen}
-                        style = {styles.input}
-                    />
+                    <View style = {styles.inputContainer}>
+                        <Text style = {styles.required}>*</Text>
+                        <TextInput
+                            placeholder = "First Name"
+                            value = {props.user.firstName}
+                            onChangeText = {handleFirstName}
+                            placeholderTextColor = {charlstonGreen}
+                            style = {styles.input}
+                        />
+                    </View>
+                    <View style = {styles.inputContainer}>
+                    <Text style = {styles.required}>*</Text>
                     <TextInput
                         placeholder = "Last Name"
                         value = {props.user.lastName}
@@ -47,6 +52,9 @@ export const SignUpForm = (props)=>{
                         placeholderTextColor = {charlstonGreen}
                         style = {styles.input}
                     />
+                    </View>
+                    <View style = {styles.inputContainer}>
+                    <Text style = {styles.required}>*</Text>
                     <TextInput
                         placeholder = "username"
                         value = {props.user.userName}
@@ -54,6 +62,9 @@ export const SignUpForm = (props)=>{
                         placeholderTextColor = {charlstonGreen}
                         style = {styles.input}
                     />
+                    </View>
+                    <View style = {styles.inputContainer}>
+                    <Text style = {styles.required}>*</Text>
                     <TextInput
                         placeholder = "Email"
                         value = {props.user.email}
@@ -61,6 +72,9 @@ export const SignUpForm = (props)=>{
                         placeholderTextColor = {charlstonGreen}
                         style = {styles.input}
                     />
+                    </View>
+                    <View style = {styles.inputContainer}>
+                    <Text style = {styles.required}>*</Text>
                     <TextInput
                         placeholder = "Password"
                         value = {props.user.password}
@@ -69,6 +83,9 @@ export const SignUpForm = (props)=>{
                         secureTextEntry = {true}
                         style = {styles.input}
                     />
+                    </View>
+
+                    <View style = {styles.inputContainer}>
                     <TextInput
                         placeholder = "Profile Picture"
                         value = {props.user.profilePicture}
@@ -76,6 +93,7 @@ export const SignUpForm = (props)=>{
                         placeholderTextColor = {charlstonGreen}
                         style = {styles.input}
                     />
+                    </View>
                 </View>
             </View>
         </KeyboardAwareScrollView>
@@ -92,5 +110,16 @@ const styles = StyleSheet.create({
         borderBottomWidth: 3,
         backgroundColor: bubbles,
         padding: 10,
+        width: wp('90%')
+    },
+    inputContainer: {
+        flex:1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    required:{
+        fontSize: 20,
+        color: 'red',
     }
 })

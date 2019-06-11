@@ -3,15 +3,20 @@ import {Text} from 'react-native'
 import {NativeRouter, Link} from 'react-router-native'
 import { Navigation, Card } from 'react-router-navigation'
 
+import ApolloClient from 'apollo-boost'
+import {ApolloProvider} from 'react-apollo'
 import {HomePage} from './components/homepage'
 import {SignUp} from './components/SignUp/signup'
+
+const client = new ApolloClient()
 
 
 export default class App extends React.Component{
   render(){
     return (
-      <NativeRouter>
-        <Navigation>
+      <ApolloProvider client = {client}>
+        <NativeRouter>
+          <Navigation>
           <Card
             exact
             path = "/"
@@ -28,8 +33,9 @@ export default class App extends React.Component{
             <SignUp/>
           }
             />
-        </Navigation>
-      </NativeRouter>
+          </Navigation>
+        </NativeRouter>
+      </ApolloProvider>
     );
   }
 }
