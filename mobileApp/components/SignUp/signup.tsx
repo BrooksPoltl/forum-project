@@ -52,10 +52,11 @@ export const SignUp = ()=>{
         setMissing("")
         return data
     }
+    
     return (
         <Mutation mutation = {REGISTER}>{(register, {data,error})=>{
             if(data) if(data.signUp.errorMessage == null)return <View style = {styles.container}>
-                <Text>Thank you for joining Symposium!</Text> 
+                <Text>Thank you for joining Symposium!</Text>  
                 <Link style = {styles.link}to = "/">
                     <Text style = {styles.buttonText}>back to home</Text>
                 </Link> 
