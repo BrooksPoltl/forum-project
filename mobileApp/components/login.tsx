@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import { StyleSheet,TouchableOpacity, Text, View, TextInput, AsyncStorage } from 'react-native';
 import {charlstonGreen, deFrance, bubbles} from '../assets/designVariables';
-import {Link} from 'react-router-native'
+import {Link, Redirect} from 'react-router-native'
+
 import {Mutation} from 'react-apollo'
 import gql from 'graphql-tag'
 import {widthPercentageToDP as wp, heightPercentageToDP as hp} from 'react-native-responsive-screen';
@@ -28,11 +29,7 @@ export const Login = () =>{
     const [message, setMessage] = useState()
 
     const handleSuccess = async(data)=>{
-        try{
-            await AsyncStorage.setItem('authorization', data.login.token)
-        }catch{
-
-        }
+            await AsyncStorage.setItem('authorization', data.login.token)   
     }
     const handleEmail = (email)=>{
         setUser({...user, email: email})
@@ -44,10 +41,10 @@ export const Login = () =>{
         <View>
             <Mutation mutation = {LOGIN}>{(login,{data,error, loading})=>{
                 if(loading) return <View><Text>Loading</Text></View>
-                if(data)return <View>
-                    {console.log(data)} 
-                    <Text>{data.login.token}</Text> 
-                </View>
+                {if(data){
+                    handleSuccess(data)
+                }} 
+                if(data)return<Redirect to ="/timeline"/>
                 return(
                 <View>
                     <Text>Symposium</Text>
@@ -78,8 +75,10 @@ export const Login = () =>{
                          }
                         }}>
                         {message?<Text>{message}</Text>:null}
+                        {error?<Text>Incorrect username or password</Text>: null}
                         <Text >Submit</Text>
                     </TouchableOpacity>
+                    
                 </View>
         )}}  
             </Mutation>
