@@ -5,8 +5,10 @@ import { Navigation, Card } from 'react-router-navigation'
 
 import ApolloClient from 'apollo-boost'
 import {ApolloProvider} from 'react-apollo'
+
 import {HomePage} from './components/homepage'
 import {SignUp} from './components/SignUp/signup'
+import {Login} from './components/login'
 
 const client = new ApolloClient({
   uri: "https://symposium-forum-project.herokuapp.com/graphql"
@@ -27,12 +29,18 @@ export default class App extends React.Component{
             )}/>
           <Card 
             path ="/login"
-            render = {()=><Text>Login</Text>}
+            render = {()=><Login />}
             />
           <Card 
             path ="/signup"
             render = {()=>
             <SignUp/>
+          }
+            />
+          <Card 
+            path ="/timeline"
+            render = {()=>
+            <Text>Timeline</Text>
           }
             />
           </Navigation>

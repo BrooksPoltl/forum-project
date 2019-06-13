@@ -29,7 +29,7 @@ export const SignUpForm = (props)=>{
         props.setUser({...props.user, profilePicture: profilePicture})
     }
     
-    if(1)return (
+    return (
         <KeyboardAwareScrollView style = {styles.scrollContainer}> 
             <View>
                 <View>

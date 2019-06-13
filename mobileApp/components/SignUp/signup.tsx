@@ -58,7 +58,7 @@ export const SignUp = ()=>{
                 <Text>Thank you for joining Symposium!</Text> 
                 <Link style = {styles.link}to = "/">
                     <Text style = {styles.buttonText}>back to home</Text>
-                </Link>
+                </Link> 
             </View>
             if (!submitted)return(
             <View style = {styles.container}>
@@ -117,8 +117,9 @@ const styles = StyleSheet.create({
         borderWidth: 2,
         borderColor: charlstonGreen,
         backgroundColor: deFrance,
+        marginTop: 300,
         height: 40,
-        width: wp('60%'),
+        width: wp('40%'),
         margin: 20,
         flex: 1,
         alignItems: 'center',
@@ -132,5 +133,5 @@ const styles = StyleSheet.create({
         color: 'red',
         padding: 0,
         margin: 0,
-    }
+    },
 })
