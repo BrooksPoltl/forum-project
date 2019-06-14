@@ -11,7 +11,7 @@ import {createHttpLink} from 'apollo-link-http'
 import {HomePage} from './components/homepage'
 import {SignUp} from './components/SignUp/signup'
 import {Login} from './components/login'
-
+import {TimeLine} from './components/TimeLine/timeline'
 
 
 const client = new ApolloClient({
@@ -53,7 +53,7 @@ export default class App extends React.Component{
           <Card 
             path ="/timeline"
             render = {()=>
-            <Text>Timeline</Text>
+            <TimeLine/>
           }
             />
           </Navigation>

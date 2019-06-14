@@ -29,7 +29,8 @@ export const Login = () =>{
     const [message, setMessage] = useState()
 
     const handleSuccess = async(data)=>{
-            await AsyncStorage.setItem('authorization', data.login.token)   
+            await AsyncStorage.setItem('authorization', data.login.token)  
+            await AsyncStorage.setItem('id', data.login._id) 
     }
     const handleEmail = (email)=>{
         setUser({...user, email: email})
@@ -41,7 +42,7 @@ export const Login = () =>{
         <View>
             <Mutation mutation = {LOGIN}>{(login,{data,error, loading})=>{
                 if(loading) return <View><Text>Loading</Text></View>
-                {if(data){
+                {if(data){ 
                     handleSuccess(data)
                 }} 
                 if(data)return<Redirect to ="/timeline"/>
