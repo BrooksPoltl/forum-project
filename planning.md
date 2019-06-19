@@ -22,7 +22,7 @@
   name: string, 
   subscribers:int,
   threads: [thread],
-  leader,
+  user: user
   moderators: [user]
 }
 ```
