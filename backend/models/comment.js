@@ -18,12 +18,12 @@ const commentSchema = new Schema({
         type: Number,
         required:true
     },
-    user: {
+    userId: {
         type: ObjectId,
         required: true
     },
-    thread: {
-        type: Object,
+    threadId: {
+        type: ObjectId,
         required: true
     }
 },{timestamps: true})

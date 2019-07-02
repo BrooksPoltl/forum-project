@@ -16,7 +16,7 @@ const topicSchema = new Schema({
         type: Array,
         required: true
     },
-    user: {
+    userId: {
         type: ObjectId,
         required: true
     },

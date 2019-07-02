@@ -24,12 +24,12 @@ const threadSchema = new Schema({
         type: Array,
         required: true
     },
-    user: {
+    userId: {
         type: ObjectId,
         required: true
     },
-    topic: {
-        type: Object,
+    topicId: {
+        type: ObjectId,
         required: true
     }
 },{
