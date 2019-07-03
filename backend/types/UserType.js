@@ -25,23 +25,27 @@ const UserType = new GraphQLObjectType({
         email: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)},
         comments: {type: new GraphQLNonNull(GraphQLList(CommentType)),
-            resolve:async(parentValue,args,{user})=>{
-                let getComments = await Comment.find({user: user.id})
+            resolve:async(parentValue,args)=>{
+                let getComments = await Comment.find({userId: parentValue._id})
                 return [...getComments]
             }
         },
         topics: {type: new GraphQLNonNull(GraphQLList(TopicType)),
             resolve:async(parentValue,args)=>{
                 let result = await User.findById(parentValue._id)
-                
-                return [...result.topics]
+                let topics = []
+                for(let i = 0; i< result.topics.length; i++){
+                    let currentTopic = await Topic.findById(result.topics[i])
+                    topics.push(currentTopic)
+                }
+                return topics
             }
         },
 
         threads: {type: new GraphQLNonNull(GraphQLList(ThreadType)),
-            resolve:async(parentValue,args, {user})=>{
-                let getThreads = await Thread.find({user: user.id})
-                return [...getThreads]
+            resolve:async(parentValue,args)=>{
+                let getThreads = await Thread.find({userId: parentValue._id})
+                return getThreads
             }
         },   
         errorMessage: {type: GraphQLString}
