@@ -28,8 +28,8 @@ const TopicType = new GraphQLObjectType({
         }},
         threads: {type: new GraphQLNonNull(GraphQLList(ThreadType)),
             resolve:async(parentValue,args)=>{
-                let result = await Topic.findById(parentValue._id)
-                return [...result.threads]
+                let result = await Thread.find()
+                return [...result]
             }
         },
     }}
