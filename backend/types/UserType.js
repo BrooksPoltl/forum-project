@@ -38,7 +38,6 @@ const UserType = new GraphQLObjectType({
                     let currentTopic = await Topic.findById(result.subscriptions[i])
                     topics.push(currentTopic)
                 };
-                console.log(result)
                 return topics
             }
         },

@@ -55,15 +55,12 @@ const deleteThread = {
 const upvoteThread = {
     type: ThreadType,
     args:{
-        threadId:{type: GraphQLNonNull(GraphQLID), resolve:async()=>{
-            let thread = await Thread.find({_id: args.thread})
-            return thread;
-        }}
+        threadId: { type: GraphQLNonNull(GraphQLID) } 
     },
     async resolve(parentValue,args, {user}){
         let getUser = await User.findById(user.id)
-        let updateUpvotes = await Thread.update({_id: args.threadId},{$addToSet: {upvotes:getUser}})
-        let updateDownvotes = await Thread.update({_id: args.threadId},{$pull: {downvotes:getUser}})
+        let updateUpvotes = await Thread.update({_id: args.threadId},{$addToSet: {upvotes: user.id}})
+        let updateDownvotes = await Thread.update({_id: args.threadId},{$pull: {downvotes: user.id}})
         let updatedThread = await Thread.findById(args.threadId)
         return updatedThread
     }
@@ -78,8 +75,8 @@ const downvoteThread = {
     },
     async resolve(parentValue,args, {user}){
         let getUser = await User.findById(user.id)
-        let updateUpvotes = await Thread.update({_id: args.threadId},{$pull: {upvotes:getUser}})
-        let updateDownvotes = await Thread.update({_id: args.threadId},{$addToSet: {downvotes:getUser}})
+        let updateUpvotes = await Thread.update({_id: args.threadId},{$pull: {upvotes: user.id}})
+        let updateDownvotes = await Thread.update({_id: args.threadId},{$addToSet: {downvotes: user.id}})
         let updatedThread = await Thread.findById(args.threadId)
         return updatedThread
     }
