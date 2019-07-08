@@ -12,7 +12,8 @@ const getThreadById = {
         async resolve(parentValue, args) {
             return Thread.find({_id: args.id });
         }
-    }
+	}
+
 const getThreads = {
     type: GraphQLList(ThreadType),
     args: {},
