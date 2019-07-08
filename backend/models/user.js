@@ -32,7 +32,7 @@ const userSchema = new Schema({
         type: Array,
         required: true
     },
-    topics:{
+    subscriptions:{
         type: Array,
         required: false
     },

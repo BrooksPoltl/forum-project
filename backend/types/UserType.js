@@ -30,14 +30,15 @@ const UserType = new GraphQLObjectType({
                 return [...getComments]
             }
         },
-        topics: {type: new GraphQLNonNull(GraphQLList(TopicType)),
+        subscriptions: {type: new GraphQLNonNull(GraphQLList(TopicType)),
             resolve:async(parentValue,args)=>{
-                let result = await User.findById(parentValue._id)
-                let topics = []
-                for(let i = 0; i< result.topics.length; i++){
-                    let currentTopic = await Topic.findById(result.topics[i])
+                let result = await User.findById(parentValue._id);
+                let topics = [];
+                for(let i = 0; i< result.subscriptions.length; i++){
+                    let currentTopic = await Topic.findById(result.subscriptions[i])
                     topics.push(currentTopic)
-                }
+                };
+                console.log(result)
                 return topics
             }
         },

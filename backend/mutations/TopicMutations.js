@@ -17,7 +17,7 @@ const createTopic = {
         const newTopic = new Topic({
             name: args.name,
             subscribers: 0,
-            user: user.id,
+            userId: user.id,
             users: [],
             threads: []
         })
@@ -55,7 +55,7 @@ const deleteTopic = {
 
 const subscribe = {
     type: TopicType,
-    args:{id:{type: GraphQLNonNull(GraphQLID)}},
+    args:{ id:{ type: GraphQLNonNull(GraphQLID) } },
     async resolve(parentValue,args,{user}){
         let topic = await Topic.find({_id: args.id})
         topic = topic[0]
@@ -68,9 +68,8 @@ const subscribe = {
         let userObj = await User.find({_id: user.id})
         userObj = userObj[0]
         let updateTopic = await Topic.update({_id: topic._id},{$addToSet: {users:userObj}})
-        let updateUser = await User.update({_id: user.id},{$addToSet: {topics:topic}})
-        let updatedTopic = await Topic.find({_id:args.id})
-        updatedTopic = updatedTopic[0]
+        let updateUser = await User.update({_id: user.id},{$addToSet: {subscriptions: args.id}})
+        let updatedTopic = await Topic.findById(args.id)
         return updatedTopic
     }
 }

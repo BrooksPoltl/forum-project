@@ -25,7 +25,7 @@ const TopicType = new GraphQLObjectType({
             type: new GraphQLNonNull(GraphQLInt),
             resolve: parentValue => parentValue.users.length,
         },
-        user: { type: new GraphQLNonNull(GraphQLID) },
+        userId: { type: new GraphQLNonNull(GraphQLID) },
         users: {
             type: new GraphQLNonNull(GraphQLList(UserType)),
             resolve: async (parentValue) => {
