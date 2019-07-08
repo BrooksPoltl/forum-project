@@ -13,10 +13,10 @@ const {
 const {ThreadType} = require('./ThreadType')
 const {Comment} = require('../models/models')
 
-const CommentType= new GraphQLObjectType({
+const CommentType = new GraphQLObjectType({
     name: 'Comment',
     fields:()=>{
-    const {UserType} = require('./UserType')
+    const { UserType } = require('./UserType')
     return{
         _id: {type: new GraphQLNonNull(GraphQLID)},
         content: {type: new GraphQLNonNull(GraphQLString)},

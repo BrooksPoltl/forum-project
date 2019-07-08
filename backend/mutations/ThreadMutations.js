@@ -22,7 +22,7 @@ const createThread = {
         const newThread = new Thread({
             title: args.title,
             description: args.description,
-            topic: topic,
+            topicId: args.topicId,
             user: user.id,
             upvotes: [],
             downvotes:[],
@@ -30,7 +30,7 @@ const createThread = {
             total: 0,
         })
         const response = await newThread.save()
-
+        console.log(response)
     }
 }
 const deleteThread = {
