@@ -43,16 +43,9 @@ const TopicType = new GraphQLObjectType({
         threads: {
             type: new GraphQLNonNull(GraphQLList(ThreadType)),
             resolve: async (parentValue) => {
-                const result = await Topic.findById(parentValue._id);
-                const threadIds = result.threads
-                let response = []
-                
-                for(let i = 0; i<threadIds.length; i++){
-                    let currentThread = await Thread.findById(threadIds[i])
-                    response.push(currentThread)
-                }
-                
-                return response 
+                const result = await Thread.find({topicId: parentValue._id});
+
+                return result 
             },
         },
     };

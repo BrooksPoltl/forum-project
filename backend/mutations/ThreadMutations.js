@@ -31,6 +31,7 @@ const createThread = {
         });
         const response = await newThread.save();
         await Topic.update({_id: args.topicId}, {$addToSet: {threads: response._id}})
+
         return response
     }
 }
