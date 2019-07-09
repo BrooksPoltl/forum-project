@@ -65,9 +65,7 @@ const subscribe = {
                 throw Error("already subscribed")
             }
         }
-        let userObj = await User.find({_id: user.id})
-        userObj = userObj[0]
-        let updateTopic = await Topic.update({_id: topic._id},{$addToSet: {users:userObj}})
+        let updateTopic = await Topic.update({_id: args.id},{$addToSet: {users:user.id}})
         let updateUser = await User.update({_id: user.id},{$addToSet: {subscriptions: args.id}})
         let updatedTopic = await Topic.findById(args.id)
         return updatedTopic
@@ -77,13 +75,9 @@ const unsubscribe = {
     type: TopicType,
     args:{id:{type: GraphQLNonNull(GraphQLID)}},
     async resolve(parentValue,args,{user}){
-        let topic = await Topic.find({_id: args.id})
-        topic = topic[0]
-        let userObj = await User.find({_id: user.id})
-        userObj = userObj[0]
+        await Topic.update({_id: args.id},{$pull:{users:user.id}})
+        await User.update({_id: user.id},{$pull:{topics:args.id}})
         
-        await Topic.update({_id: topic._id},{$pull:{users:userObj}})
-        await User.update({_id: topic._id},{$pull:{topics:topic}})
         let updatedTopic = await Topic.find({_id:args.id})
         updatedTopic = updatedTopic[0]
         return updatedTopic

@@ -23,14 +23,15 @@ const createThread = {
             title: args.title,
             description: args.description,
             topicId: args.topicId,
-            user: user.id,
+            userId: user.id,
             upvotes: [],
             downvotes:[],
             comments: [],
             total: 0,
-        })
-        const response = await newThread.save()
-        console.log(response)
+        });
+        const response = await newThread.save();
+        await Topic.update({_id: args.topicId}, {$addToSet: {threads: response._id}})
+        return response
     }
 }
 const deleteThread = {
@@ -59,8 +60,8 @@ const upvoteThread = {
     },
     async resolve(parentValue,args, {user}){
         let getUser = await User.findById(user.id)
-        let updateUpvotes = await Thread.update({_id: args.threadId},{$addToSet: {upvotes: user.id}})
-        let updateDownvotes = await Thread.update({_id: args.threadId},{$pull: {downvotes: user.id}})
+        await Thread.update({_id: args.threadId},{$addToSet: {upvotes: user.id}})
+        await Thread.update({_id: args.threadId},{$pull: {downvotes: user.id}})
         let updatedThread = await Thread.findById(args.threadId)
         return updatedThread
     }
