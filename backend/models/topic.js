@@ -12,10 +12,6 @@ const topicSchema = new Schema({
         type: Number,
         required: true
     },
-    threads: {
-        type: Array,
-        required: true
-    },
     userId: {
         type: ObjectId,
         required: true
