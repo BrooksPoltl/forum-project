@@ -24,15 +24,9 @@ const ThreadType= new GraphQLObjectType({
         title: {type: new GraphQLNonNull(GraphQLString)},
         description: {type: new GraphQLNonNull(GraphQLString)},
         comments:{type: new GraphQLNonNull(GraphQLList(CommentType)),
-            resolve:async(parentValue,args) => {
-                const result = await Thread.findById(parentValue.id);
-                const commentIds = result.comments;
-                let response = []
-                for(let i = 0; i< commentIds.length; i++){
-                    let currentComment = await Comment.findById(comments[i]);
-                    response.push(currentComment);
-                }
-                return response
+            resolve:async (parentValue,args) => {
+                const result = await Comment.find({threadId: parentValue._id })
+                return result
         }},
         total: {type: new GraphQLNonNull(GraphQLInt),
             resolve:(parentValue, args)=>{
