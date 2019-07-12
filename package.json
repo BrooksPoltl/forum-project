@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha 'test/**/*.js'",
+    "test": "mocha 'test/queries/*.js' && mocha 'test/mutations/**/*.js'",
     "start": "node server.js",
     "server": "nodemon server.js"
   },

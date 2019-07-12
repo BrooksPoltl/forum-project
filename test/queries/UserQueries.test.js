@@ -100,7 +100,7 @@ describe('User Queries', ()=>{
                         users{
                             _id
                             userName
-                            topics{
+                            subscriptions{
                                 _id
                             }
                         }
@@ -232,7 +232,7 @@ describe('User Queries', ()=>{
                             user(id: ""){
                                 _id
                                 userName
-                                topics{
+                                subscriptions{
                                     _id
                                 }
                             }
