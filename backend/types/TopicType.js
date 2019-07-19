@@ -20,7 +20,7 @@ const TopicType = new GraphQLObjectType({
     const { ThreadType } = require('./ThreadType');
     return {
         _id: { type: new GraphQLNonNull(GraphQLID) },
-        name: { type: new GraphQLNonNull(GraphQLString) },
+        title: { type: new GraphQLNonNull(GraphQLString) },
         subscribers: {
             type: new GraphQLNonNull(GraphQLInt),
             resolve: parentValue => parentValue.users.length,

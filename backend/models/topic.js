@@ -4,9 +4,10 @@ const Schema = mongoose.Schema;
 const ObjectId = mongoose.Schema.ObjectId;
 
 const topicSchema = new Schema({
-    name: {
+    title: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     subscribers: {
         type: Number,

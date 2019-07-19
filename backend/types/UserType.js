@@ -18,10 +18,7 @@ const UserType = new GraphQLObjectType({
         const {CommentType} = require('./CommentType')
         return{
         _id: {type: new GraphQLNonNull(GraphQLID)},
-        firstName: {type: new GraphQLNonNull(GraphQLString)},
-        lastName: {type: new GraphQLNonNull(GraphQLString)},
-        userName: {type: new GraphQLNonNull(GraphQLString)},
-        profilePicture: {type: new GraphQLNonNull(GraphQLString)},
+        username: {type: new GraphQLNonNull(GraphQLString)},
         email: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)},
         comments: {type: new GraphQLNonNull(GraphQLList(CommentType)),
@@ -41,7 +38,6 @@ const UserType = new GraphQLObjectType({
                 return topics
             }
         },
-
         threads: {type: new GraphQLNonNull(GraphQLList(ThreadType)),
             resolve:async(parentValue,args)=>{
                 let getThreads = await Thread.find({userId: parentValue._id})

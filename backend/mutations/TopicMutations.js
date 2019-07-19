@@ -8,20 +8,23 @@ const {TopicType} = require('../types/types')
 const createTopic = {
     type: TopicType,
     args: {
-        name: {type: new GraphQLNonNull(GraphQLString)},
+        title: {type: new GraphQLNonNull(GraphQLString)},
     },
     async resolve(parentValue, args, {user}){
         if(!user){
             throw Error('Please sign in to create a topic')
-        }
+        };
         const newTopic = new Topic({
-            name: args.name,
+            title: args.title,
             subscribers: 0,
             userId: user.id,
             users: [],
             threads: []
-        })
-        const response = await newTopic.save()
+        });
+        const response = await newTopic.save();
+        let topic = await Topic.find({title: args.title});
+        topic = topic[0];
+        return topic
     }
 }
 

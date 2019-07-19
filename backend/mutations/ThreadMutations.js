@@ -18,7 +18,6 @@ const createThread = {
         if(!user){
             throw Error('Please sign in to create a Thread')
         }
-        let topic = await Topic.findById(args.topicId)
         const newThread = new Thread({
             title: args.title,
             description: args.description,
@@ -30,7 +29,6 @@ const createThread = {
             total: 0,
         });
         const response = await newThread.save();
-        await Topic.update({_id: args.topicId}, {$addToSet: {threads: response._id}})
 
         return response
     }
@@ -60,7 +58,6 @@ const upvoteThread = {
         threadId: { type: GraphQLNonNull(GraphQLID) } 
     },
     async resolve(parentValue,args, {user}){
-        let getUser = await User.findById(user.id)
         await Thread.update({_id: args.threadId},{$addToSet: {upvotes: user.id}})
         await Thread.update({_id: args.threadId},{$pull: {downvotes: user.id}})
         let updatedThread = await Thread.findById(args.threadId)
@@ -76,9 +73,9 @@ const downvoteThread = {
         }}
     },
     async resolve(parentValue,args, {user}){
-        let getUser = await User.findById(user.id)
-        let updateUpvotes = await Thread.update({_id: args.threadId},{$pull: {upvotes: user.id}})
-        let updateDownvotes = await Thread.update({_id: args.threadId},{$addToSet: {downvotes: user.id}})
+
+        await Thread.update({_id: args.threadId},{$pull: {upvotes: user.id}})
+        await Thread.update({_id: args.threadId},{$addToSet: {downvotes: user.id}})
         let updatedThread = await Thread.findById(args.threadId)
         return updatedThread
     }

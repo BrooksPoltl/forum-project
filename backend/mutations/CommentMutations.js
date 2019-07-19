@@ -40,8 +40,8 @@ const upvoteComment= {
     },
     async resolve(parentValue,args, {user}){
         let getUser = await User.findById(user.id)
-        let updateUpvotes = await Comment.update({_id: args.commentId},{$addToSet: {upvotes:getUser}})
-        let updateDownvotes = await Comment.update({_id: args.commentId},{$pull: {downvotes:getUser}})
+        await Comment.update({_id: args.commentId},{$addToSet: {upvotes:getUser}})
+        await Comment.update({_id: args.commentId},{$pull: {downvotes:getUser}})
         let updatedComment = await Comment.findById(args.commentId)
         return updatedComment
     }
@@ -56,8 +56,8 @@ const downvoteComment= {
     },
     async resolve(parentValue,args, {user}){
         let getUser = await User.findById(user.id)
-        let updateUpvotes = await Comment.update({_id: args.commentId},{$pull: {upvotes:getUser}})
-        let updateDownvotes = await Comment.update({_id: args.commentId},{$addToSet: {downvotes:getUser}})
+        await Comment.update({_id: args.commentId},{$pull: {upvotes:getUser}})
+        await Comment.update({_id: args.commentId},{$addToSet: {downvotes:getUser}})
         let updatedComment = await Comment.findById(args.commentId)
         return updatedComment
     }

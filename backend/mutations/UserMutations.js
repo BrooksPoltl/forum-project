@@ -12,39 +12,24 @@ const {User,Comment,Thread,Topic} = require('../models/models')
 const signUp = {
     type: UserType,
     args: {
-        firstName: {type: new GraphQLNonNull(GraphQLString)},
-        lastName: {type: new GraphQLNonNull(GraphQLString)},
-        userName: {type: new GraphQLNonNull(GraphQLString)},
-        profilePicture: {type: GraphQLString},
+        username: {type: new GraphQLNonNull(GraphQLString)},
         email: {type: new GraphQLNonNull(GraphQLString)},
         password: {type: new GraphQLNonNull(GraphQLString)}
     },
     async resolve(parentValue, args){
         const password = await bcrypt.hash(args.password, 12);
-        const checkUser = await User.find({userName: args.userName})
-        const  checkEmail= await User.find({email: args.email})
         const newUser = new User({
-            firstName: args.firstName,
-            lastName: args.lastName,
-            userName: args.userName,
-            profilePicture: args.profilePicture,
+            username: args.username,
             email: args.email,
             password: password
             });
-        if(!newUser.profilePicture){
-            newUser.profilePicture = picUrl;
-        }
-        if(checkUser.length == 0 && checkEmail.length == 0){
-            const response = await newUser.save();
-            let user = await User.find({userName: args.userName})
+
+            await newUser.save();
+            let user = await User.find({username: args.username})
             user = user[0]
-            return {...args, _id: user._id }
-        }else if(checkUser.length!= 0){
-            return {errorMessage: 'username already exist'}
-        }else{
-            return {errorMessage: 'email already exist'}
-        }
-        
+            console.log(user)
+            return user
+
     }
 }
 const deleteUser = {
