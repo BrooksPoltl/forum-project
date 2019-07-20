@@ -24,10 +24,9 @@ const signUp = {
             password: password
             });
 
-            await newUser.save();
+            const response = await newUser.save();
             let user = await User.find({username: args.username})
             user = user[0]
-            console.log(user)
             return user
 
     }
