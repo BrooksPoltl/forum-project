@@ -3,7 +3,8 @@ const styles = {
         backgroundColor: "white",
         width: "50%",
         padding: "5%",
-        height: "100vh"
+        height: "100vh",
+        zIndex: "2",
     },
     signUpButton:{
         background: 'linear-gradient(45deg, #7F96FF 30%, #A6CFD5 90%)',
