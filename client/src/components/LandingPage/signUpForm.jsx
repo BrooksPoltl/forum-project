@@ -1,8 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
 
-import FormControl from '@material-ui/core/FormControl';
-import InputLabel from '@material-ui/core/InputLabel';
-import Input from '@material-ui/core/Input';
+
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
@@ -12,24 +10,34 @@ import './styling/SignupForm.styling.css'
 
 const SignupForm = () =>{
     const [user, setUser] = useState({username: "", email: "", password: "", confirmPassword:""});
-    const [missing, setMissing] = useState(""); 
+    const [missing,] = useState({username: false, email: false, password: false, confirmPassword: false}); 
+    const [, updateState] = useState();
+    const forceUpdate = useCallback(() => updateState({}), []);
+    const didMountRef = useRef(false);
+
+    useEffect(()=>{
+        const checkMissing = () =>{
+            if(didMountRef.current){
+                user.username === ""? missing.username = true: missing.username = false;
+                user.email === ""? missing.email = true: missing.email = false;
+                user.password === ""? missing.password = true: missing.password = false;
+                user.confirmPassword === ""?missing.confirmPassword = true:missing.confirmPassword = false;
+                forceUpdate()
+            }
+            else{
+                didMountRef.current = true;
+            }
+        }
+        
+        checkMissing()
+        
+    },[user, forceUpdate, missing, didMountRef])
+   
 
     const handleChange = (event) =>{
-        if(!user.username && event.target.name !== "username"){
-            setMissing("username");
-        }
-        else if(!user.email && event.target.name !== "email"){
-            setMissing("email");
-        }
-        else if (!user.password && event.target.name !== "password"){
-            setMissing("password");
-        }
-        else if(!user.confirmPassword && event.target.name !== "confirmPassword"){
-            setMissing("confirmPassword");
-        }else{
-            setMissing("");
-        }
-        setUser({...user, [event.target.name]: event.target.value});
+ 
+        const value = event.target.value;
+        setUser({...user, [event.target.name]: value});
     };
 
     return (
@@ -42,7 +50,7 @@ const SignupForm = () =>{
                     value = {user.username}
                     name = "username"
                     onChange = {handleChange}
-                    error = {missing === "username"? true : false}
+                    error = {missing.username}
                 />
                 <TextField
                     required = {true}
@@ -50,7 +58,7 @@ const SignupForm = () =>{
                     value = {user.email}
                     name = "email"
                     onChange = {handleChange}
-                    error = {missing === "email"? true : false}
+                    error = {missing.email}
                 />
                 <TextField
                     required = {true}
@@ -59,7 +67,7 @@ const SignupForm = () =>{
                     name = "password"
                     type = "password"
                     onChange = {handleChange}
-                    error = {missing === "password"? true : false}
+                    error = {missing.password}
                 />
                 <TextField 
                     required = {true} 
@@ -68,7 +76,7 @@ const SignupForm = () =>{
                     name = "confirmPassword"
                     type = "password"
                     onChange = {handleChange}
-                    error = {missing === "confirmPassword" ? true : false}
+                    error = {missing.confirmPassword}
                 />
                 <Button  color = "red">Sign Up</Button>
                 <Button  >Login</Button>
