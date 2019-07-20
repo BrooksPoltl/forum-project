@@ -27,6 +27,11 @@ const styles = {
     formContainer: {
         display: "flex", 
         flexDirection: "column"
+    },
+    errorMessage:{
+        color: "red",
+        // fontWeight: "bold",
+        fontSize: "18px",
     }
 }
 export default styles;

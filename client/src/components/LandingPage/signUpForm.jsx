@@ -50,10 +50,24 @@ const SignupForm = (props) =>{
     };
     const handleSubmit = async(data, signUp) =>{
         if(user.password!== user.confirmPassword){
-            return ()=>setErrorMessage("passwords do not match");
+            return setErrorMessage("passwords do not match");
         }
         try{
-            await signUp({variables: {username: user.username, email: user.email, password: user.password}})
+            await signUp({variables: {username: user.username, email: user.email, password: user.password}}).then((res)=>{
+                console.log(res)
+                if(res.data.signUp.errorMessage){
+                    console.log(res)
+                    if(res.data.signUp.errorMessage === "Email already exist"){
+                        missing.email = true;
+                    }else{
+                        missing.username = true;
+                    }
+                    return setErrorMessage(res.data.signUp.errorMessage);
+                } else{
+                    setErrorMessage("");
+                    setSuccess(true);
+                }
+            })
         }catch(err){
             console.log(err);
 
@@ -64,8 +78,10 @@ const SignupForm = (props) =>{
     return (
         <Mutation mutation = {SIGN_UP}>{(signUp, {data, error, loading})=>(
             <div className = {classes.form}>
-                <Typography className = {classes.headerText} variant = "h5">Sign up to join the discussion here at Symposium</Typography>
-                    {!loading?  <FillForm
+                <Typography className = {classes.headerText} variant = "h5">
+                    Sign up to join the discussion here at Symposium
+                </Typography>
+                    {!loading && !success?  <FillForm
                                     user = {user} 
                                     missing = {missing} 
                                     classes = {classes} 
@@ -75,11 +91,24 @@ const SignupForm = (props) =>{
                                     data = {data}
                                     signUp = {signUp}
                                 />:
-                                <div className = {classes.loadingContainer}>
+                                null
+                    }
+                    {loading?   <div className = {classes.loadingContainer}>
                                     <CircularProgress />
-                                </div>
-                }
-                <Typography variant = "h6">{!data && !success?"Already have an account?":"Thank you for joining symposium, click here to login"}</Typography>
+                                </div>:
+                                null
+                    }
+                    {errorMessage?  <p className = {classes.errorMessage}>
+                                        {errorMessage}
+                                    </p>:
+                                    null
+                    }
+                <Typography variant = "h6">
+                    {!data && !success?
+                        "Already have an account?":
+                        "Thank you for joining symposium, click here to login"
+                    }
+                </Typography>
                 <Button className = {classes.signUpButton} href = '/login' >Login</Button>
             </div>
         )}</Mutation>
