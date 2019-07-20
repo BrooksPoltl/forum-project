@@ -3,7 +3,7 @@ const styles = {
         backgroundColor: "white",
         width: "50%",
         padding: "5%",
-        height: "100vh",
+        minHeight: "100vh",
         zIndex: "2",
     },
     signUpButton:{
@@ -16,6 +16,17 @@ const styles = {
         color: "#7F96FF",
         fontWeight: "bold",
         textShadow: "1px 1px #A6CFD5",
+
+    },
+    loadingContainer:{
+        margin: "20px 0px",
+        display:"flex",
+        justifyContent: "center", 
+        alignContent: "center" 
+    },
+    formContainer: {
+        display: "flex", 
+        flexDirection: "column"
     }
 }
 export default styles;

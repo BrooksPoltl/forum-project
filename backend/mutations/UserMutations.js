@@ -23,11 +23,21 @@ const signUp = {
             email: args.email,
             password: password
             });
-
+            let userByUsername = await User.find({username: args.username});
+            userByUsername = userByUsername[0];
+            let userByEmail = await User.find({email: args.email});
+            userByEmail = userByEmail[0];
+            if (userByUsername){
+                return {...userByUsername._doc, errorMessage: "User already exist"}
+            }
+            else if(userByEmail){
+                return {...userByEmail._doc, errorMessage: "Email already exist"}    
+            }
+            
             const response = await newUser.save();
-            let user = await User.find({username: args.username})
-            user = user[0]
-            return user
+            let getNewUser = await User.find({username: args.username})
+            getNewUser = getNewUser[0]
+            return getNewUser
 
     }
 }
