@@ -25,7 +25,6 @@ const LoginForm = (props) =>{
         forceUpdate()
     };
     const handleSubmit = async(login, data)=>{
-        console.log(user)
         try{
             await login({variables: {email: user.email, password: user.password}}).then((res)=>{
                 console.log(res)
@@ -54,6 +53,10 @@ const LoginForm = (props) =>{
                         login = {login}
                     />
                     <Typography variant = "h6">Dont have an Account?</Typography>
+                    {errorMessage  ?
+                        <p>{errorMessage}</p>:
+                        null
+                    }
                     <div className = {classes.formContainer}>
                         <Button
                             variant = "contained"
