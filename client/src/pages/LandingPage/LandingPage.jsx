@@ -1,11 +1,14 @@
 import React from 'react';
 
-import HomeView from '../../components/LandingPage/HomeView'
+import SignupForm from '../../components/LandingPage/signUpForm'
 
 const LandingPage = () =>{
     return(
-        <div>
-            <HomeView />
+        <div className = 'wrapper' style = {{display: "flex"}}>
+            <div style = {{background: "blue",width : "50%"}}>
+                <h1>TEXT HERE</h1>
+            </div>
+            <SignupForm />
         </div>
     )
 };

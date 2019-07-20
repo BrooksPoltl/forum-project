@@ -1,19 +1,21 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
 
-
+import { withStyles } from '@material-ui/styles';
 import TextField from '@material-ui/core/TextField'
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 
-import './styling/SignupForm.styling.css'
+import styles from './styling/SignupForm.styling.js'
 
 
-const SignupForm = () =>{
+const SignupForm = (props) =>{
     const [user, setUser] = useState({username: "", email: "", password: "", confirmPassword:""});
-    const [missing,] = useState({username: false, email: false, password: false, confirmPassword: false}); 
+    const [missing,] = useState({username: false, email: false, password: false, confirmPassword: false});
+    const [complete, setComplete] = useState(false); 
     const [, updateState] = useState();
     const forceUpdate = useCallback(() => updateState({}), []);
     const didMountRef = useRef(false);
+    const { classes } = props;
 
     useEffect(()=>{
         const checkMissing = () =>{
@@ -22,6 +24,9 @@ const SignupForm = () =>{
                 user.email === ""? missing.email = true: missing.email = false;
                 user.password === ""? missing.password = true: missing.password = false;
                 user.confirmPassword === ""?missing.confirmPassword = true:missing.confirmPassword = false;
+                if(user.username && user.email && user.password && user.confirmPassword){
+                    setComplete(true);
+                }
                 forceUpdate()
             }
             else{
@@ -39,10 +44,9 @@ const SignupForm = () =>{
         const value = event.target.value;
         setUser({...user, [event.target.name]: value});
     };
-
     return (
-        <div className = 'form'>
-            <Typography>Sign up to join symposium</Typography>
+        <div className = {classes.form}>
+            <Typography className = {classes.headerText} variant = "h4">Sign up to join the discussion here at Symposium</Typography>
             <form style = {{display: "flex", flexDirection: "column"}}>
                 <TextField
                     required = {true} 
@@ -78,11 +82,19 @@ const SignupForm = () =>{
                     onChange = {handleChange}
                     error = {missing.confirmPassword}
                 />
-                <Button  color = "red">Sign Up</Button>
-                <Button  >Login</Button>
+                <div>
+                    <Button 
+                        className = {classes.signUpButton}
+                        type = "submit" 
+                        variant = "contained" 
+                        disabled = {!complete? true: false}
+                        >Create An Account</Button>
+                    <Typography variant = "h6"> Already have an account? </Typography>
+                    <Button className = {classes.signUpButton} href = '/login' >Login</Button>
+                </div>
             </form>
         </div>
     )
 };
 
-export default SignupForm
+export default withStyles(styles)(SignupForm)
