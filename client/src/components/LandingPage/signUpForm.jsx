@@ -48,15 +48,14 @@ const SignupForm = (props) =>{
         const value = event.target.value;
         setUser({...user, [event.target.name]: value});
     };
+    
     const handleSubmit = async(data, signUp) =>{
         if(user.password!== user.confirmPassword){
             return setErrorMessage("passwords do not match");
         }
         try{
             await signUp({variables: {username: user.username, email: user.email, password: user.password}}).then((res)=>{
-                console.log(res)
                 if(res.data.signUp.errorMessage){
-                    console.log(res)
                     if(res.data.signUp.errorMessage === "Email already exist"){
                         missing.email = true;
                     }else{
@@ -69,7 +68,6 @@ const SignupForm = (props) =>{
                 }
             })
         }catch(err){
-            console.log(err);
 
         }
 

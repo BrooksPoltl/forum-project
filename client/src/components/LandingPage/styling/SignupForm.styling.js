@@ -16,7 +16,7 @@ const styles = {
         color: "#7F96FF",
         fontWeight: "bold",
         textShadow: "1px 1px #A6CFD5",
-
+        
     },
     loadingContainer:{
         margin: "20px 0px",
