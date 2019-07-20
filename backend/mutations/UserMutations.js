@@ -66,7 +66,7 @@ const login = {
         }
         console.log(user)
         const valid = await bcrypt.compareSync(args.password, user.password)
-
+        console.log(valid)
         if (!valid) {
             return {errorMessage: 'incorrect password'}
       }
