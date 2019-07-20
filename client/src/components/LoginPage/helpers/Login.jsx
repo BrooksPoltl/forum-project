@@ -5,6 +5,7 @@ const LOGIN = gql`
     login(email: $email, password: $password){
        _id
        token
+       errorMessage
     }
 }
 `
