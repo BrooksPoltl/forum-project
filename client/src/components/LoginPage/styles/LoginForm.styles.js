@@ -29,6 +29,12 @@ const styles = {
         textShadow: "1px 1px #A6CFD5",
         margin: "20px 0px"
     },
+    loadingContainer:{
+        margin: "20px 0px",
+        display:"flex",
+        justifyContent: "center", 
+        alignContent: "center" 
+    },
 }
 
 export default styles
