@@ -1,16 +1,23 @@
-import React from 'react';
-import { Route, Switch, withRouter } from 'react-router';
-import { LandingPage, LoginPage, TimeLinePage } from './pages/index';
-const App = ()=>{
-		return(
-		<div>
-      		<Switch>
-				<Route exact path = '/' component = {LandingPage}/>
-				<Route exact path = '/login' component = {LoginPage}/>
-				<Route exact path = '/timeline' component = {TimeLinePage}/>
-			</Switch>
-    	</div>
-		)
+import React, { useState, useEffect } from 'react';
+import { withRouter } from 'react-router';
+
+import AuthenticatedUserView from './AuthenticatedUserView';
+import UnauthenticatedUserView from './UnauthenticatedUserView';
+
+import checkAuth from './helpers/checkAuth'
+
+const App = (props)=>{
+	const [auth, setAuth] = useState(false);
+	useEffect(()=>{
+		let checked = checkAuth();
+		setAuth(checked);
+	},[])
+	if(auth){
+		return <AuthenticatedUserView {...props}/>
+	}
+	else{
+		return <UnauthenticatedUserView {...props} setAuth = {setAuth}/>
+	}
 };
 
 export default withRouter(App);

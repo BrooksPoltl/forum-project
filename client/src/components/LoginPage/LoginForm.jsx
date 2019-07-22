@@ -26,7 +26,10 @@ const LoginForm = (props) =>{
                     return setErrorMessage(res.data.login.errorMessage)
                 }else{
                     localStorage.setItem('authorization', res.data.login.token);
-                    props.history.push("/timeline")
+                    localStorage.setItem('UID', res.data.login._id);
+                    props.setAuth(true)
+                    props.history.push("/");
+                    
                 }
             })
         }catch(err){
