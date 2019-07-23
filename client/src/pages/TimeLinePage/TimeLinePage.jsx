@@ -1,11 +1,11 @@
 import React from 'react';
-import NavBar from '../../components/NavBar/NavBar'
+import SideBar from '../../components/SideBar/SideBar';
 
 
 const TimeLinePage = () =>{
     return(
         <div>
-            <NavBar />
+            <SideBar />
             <p>timeline</p>
         </div>
     )

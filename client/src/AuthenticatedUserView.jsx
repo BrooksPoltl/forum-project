@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import { Route, Switch, withRouter } from 'react-router';
-import { LandingPage, LoginPage, TimeLinePage } from './pages/index';
+import React from 'react';
+import { Route, Switch } from 'react-router';
+import {  TimeLinePage } from './pages/index';
 
 
 
