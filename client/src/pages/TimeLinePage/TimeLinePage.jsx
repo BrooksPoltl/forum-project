@@ -1,12 +1,12 @@
 import React from 'react';
 import SideBar from '../../components/SideBar/SideBar';
-
+import TimeLine from '../../components/TimeLinePage/TimeLine'
 
 const TimeLinePage = () =>{
     return(
         <div>
             <SideBar />
-            <p>timeline</p>
+            <TimeLine/>
         </div>
     )
 }

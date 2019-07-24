@@ -1,19 +1,11 @@
 const styles = {
-    root: {
-        display: 'flex',
-        border: "1px solid red",
-        width: "400px"
-      },
-
-      drawer: {
-        width: "300px",
-        flexShrink: 0,
-        border: "1px solid red"
-      },
       drawerPaper: {
         width: "300px",
       },
-
+      fontAwesomeIcon:{
+        fontSize: "20px",
+        marginLeft: "2px"
+      }
 }
 
 export default styles
