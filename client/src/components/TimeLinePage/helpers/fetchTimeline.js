@@ -1,12 +1,17 @@
 import gql from "graphql-tag";
 
 const FETCH_TIMELINE = gql`
-    mutation login($email: String!, $password: String!){
-    login(email: $email, password: $password){
-       _id
-       token
-       errorMessage
+    query user($id: ID!){
+        user(id: $id){
+            username 
+            subscriptions{
+                title
+                threads{
+                    title
+                    total
+                }
+            }
+        }
     }
-}
 `
 export default FETCH_TIMELINE
