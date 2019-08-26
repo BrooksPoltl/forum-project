@@ -9,9 +9,6 @@
   lastName: string,
   email: string,
   password: string,
-  comments:[comment],
-  threads:[thread],
-  subscriptions: [topic],
 }
 ```
 
@@ -21,9 +18,7 @@
   id: int,
   name: string, 
   subscribers:int,
-  threads: [thread],
   user: user
-  moderators: [user]
 }
 ```
 >## Thread
@@ -33,7 +28,6 @@
   description: string,
   upvotes:[userIds],
   downvotes: [userIds],
-  comments:[comment]
   createdAt: time,
   userId: int,
   topicId: int
